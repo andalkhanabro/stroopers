@@ -1,8 +1,8 @@
 
-# PMS: Planetary Motion Simulator
+# PMS: 2D Planetary Motion Simulator
 ### *Understanding the universe, one simulation at a time.*
 
-The main goal of the _planetary motion simulator_ is to graphically depict a system in planetary motion and aid students' learning of the physics that governs it. 
+The main goal of the _planetary motion simulator_ is to graphically depict a simplified system in planetary motion and aid students' learning of the physics that governs it. 
 Prompted by input from the user, the application will display a system of planets in circular/elliptical motion, allowing the user to enter values for the parameters which affect 
 the trajectory and see how the variables change throughout the motion. The user will be able to choose from the pre-existing planets in our solar system, in addition to any custom planets they make. Each planet will have a user-defined name, radius, mass and color. Next, the user will enter some values for 
 the necessary variables of the orbiting bodies including mass, angular frequency, radius of orbit, and tangential velocity. A visualisation of the system with the entered values will then be shown on the screen. 
