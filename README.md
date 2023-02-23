@@ -1,29 +1,38 @@
 
-# PMS: 2D Planetary Motion Simulator
-### *Understanding the universe, one simulation at a time.*
+# Stroopers!
 
-The main goal of the _planetary motion simulator_ is to graphically depict a simplified system in planetary motion and aid students' learning of the physics that governs it. 
-Prompted by input from the user, the application will display a system of planets in circular/elliptical motion, allowing the user to enter values for the parameters which affect 
-the trajectory and see how the variables change throughout the motion. The user will be able to choose from the pre-existing planets in our solar system, in addition to any custom planets they make. Each planet will have a user-defined name, radius, mass and color. Next, the user will enter some values for 
-the necessary variables of the orbiting bodies including mass, angular frequency, radius of orbit, and tangential velocity. A visualisation of the system with the entered values will then be shown on the screen. 
+### **Weirdness. That’s a trait that the human brain and the universe have in common.**
 
+By now, man has realised that the brain is exponentially more than just a bunch of cells. The three pound organ governs 
+everything, be it thought, action, movement, vision, perception or just the very act of typing this sentence. 
+Till date, humans continue to use external stimuli to probe into the brain organisation, trying to decode the underlying 
+algorithms we subconsciously use and how our brains vary from one person to another. It is, inevitably, one of mankind’s
+big intellectual quests.
 
-Having taken both first-year physics courses at **UBC**, I, along with my peers, noticed how non-intuitive rotational motion can be. At first, the idea seems almost impossible: why does a body in orbit stay in orbit? To appeal to the curiosity of such students and make the topic visually intuitive, 
-PMS will simulate motion and help demystify concepts like escape velocity and the minimum centripetal force, given the necessary parameters. Since visualising motion can be hard at times, PMS can also be used by instructors and high-school teachers to demonstrate how each variable affects the motion, making the mathematics that follows as an elegant 
-proof of whatever is observed. The broader goal of PMS is to make physics more accessible to people who wish to explore ideas in physics but lack in the mathematical background to do so theoretically, and in doing so, act as a motivator for further study. PMS can also be used by kids to pique their interest, introducing real phenomena of nature and the physics behind it
-ahead of time.
+In this application, I will be designing a simple game based on the *Stroop Effect.* 
+Out of the many eccentric behaviors exhibited by the human brain, this is the delay in response caused while 
+differentiating between congruent and incongruent stimuli. One subset of this effect is caused by color incongruence, 
+where people tend to confuse the displayed color of a word with the color it spells.
 
-I have, for long, wished to fuse computer science and physics in a project to help make a concept easier to understand. For me, the consistency of mathematics is beautifully exhibited in the physics of our universe, and coding PMS seems like a good idea to exhibit this visually. I believe simulators like these can cater to a lot of visual learners, and show how mathematics is natural, intuitive and has practical implications. Ultimately, I aim to scale this project so that it can be potentially used by instructors at **UBC** as a tool while teaching rotational motion and gravitation. 
+Intrigued by the neuroscience which backs this phenomenon, 
+my aim is to make *Stroopers:* a potentially indefinitely running game in which words will randomly appear on the user’s screen.
+Each word will have a true color, with which it will be displayed in, and a color that the word will spell. 
+The objective of the game will be to enter the first letter of the true color, without being confused by how it is 
+spelled in a constrained time. Each correct answer will earn the user one point, while any incorrect answer or failure 
+to give an answer will cause the game to be over. After a certain point threshold, the pacing of the game will also 
+increase to make subsequent progress difficult. Finally, the user will be able to enter the earned score to a scoreboard
+and see some performance statistics relative to everyone else who has played.
 
+Playable by anyone who wants to put their brain to a test, this game is a simple variation of the testing used in 
+research around the world. The Stroop Effect is a very real phenomenon and is accounted for by UX designers and artists
+everywhere. With this game, I just want to simply demonstrate that our perceptions and actions are affected by a lot of 
+things. Things we know and things we don't know.
 
 ### User Stories
 
-- As a user, I want to be able to add a planet to my system
-- As a user, I want to be able to add an orbiting body to my planet
-- As a user, I want to be able to add an arbitrary number of planets in orbit of my main planet
-- As a user, I want to be able to change radius of orbit, tangential velocity, and/or angular velocity of my orbiting body 
-- As a user, I want to be able to see the current state of my variables in a menu
-- As a user, I want to be able a remove a planet from my system
-- As a user, I want to see current kinetic and potential energies of my orbiting body.
-- As a user, I want to be able to choose the color and name of my planets
-  
+- As a user, I want to be able to play *Stroopers* and earn a score
+- As a user, I want to be able to add my score to a scoreboard
+- As a user, I want to be able to view and sort the scoreboard
+- As a user, I want to be able to see my rank relative to other scores in the scoreboard 
+- As a user, I want to be able to remove my score from the scoreboard
+

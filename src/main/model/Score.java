@@ -32,6 +32,7 @@ public class Score {
     }
 
     public int getPoints() {
+
         return this.points;
     }
 

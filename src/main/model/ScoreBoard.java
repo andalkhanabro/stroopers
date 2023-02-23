@@ -1,6 +1,5 @@
 package model;
 
-
 // a collection of Scores of users who play the game, displayed in order of rank (or attempts?)
 
 import ui.ScoreboardUI;
@@ -27,11 +26,9 @@ public class ScoreBoard {
     // MODIFIES: this
     // EFFECTS: Deletes the most recently added score from the scoreboard
     public void deleteScore(boolean userWantsToDelete) {
-
         if (userWantsToDelete) {
 
             this.scoreBoard.remove(scoreBoard.size() - 1);
-
         }
 
     }
@@ -73,7 +70,7 @@ public class ScoreBoard {
         Collections.reverse(this.scoreBoard);
     }
 
-    // EFFECTS: returns the total number of times the game has been played by all users
+    // EFFECTS: returns the total number of times the game has been played by all users (the scoreboard size)
     public int scoreboardSize() {
         return this.scoreBoard.size();
     }
