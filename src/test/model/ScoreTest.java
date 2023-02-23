@@ -16,12 +16,16 @@ public class ScoreTest {
 
     Score score3;
 
+    Score score4;
+
     @BeforeEach
     void setup() {
 
         score1 = new Score("Andal", 2);
         score2 = new Score("Sarah", 3);
         score3 = new Score("Jack", 8);
+
+        score4 = new Score();
 
     }
 
@@ -35,6 +39,13 @@ public class ScoreTest {
         assertEquals("Andal", score1.getName());
         assertEquals("Sarah", score2.getName());
         assertEquals("Jack", score3.getName());
+
+    }
+
+    @Test
+    void ScoreSecondConstructorTest() {
+
+        assertEquals(0, score4.getPoints());
 
     }
 

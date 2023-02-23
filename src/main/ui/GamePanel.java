@@ -8,11 +8,6 @@ import java.util.Scanner;
 
 public class GamePanel {
 
-    public static void main(String[] args) throws InterruptedException {
-        GamePanel.makeFirstGame();
-
-    }
-
     static ScoreBoard scoreboard = new ScoreBoard();
 
     public static void delayTime(int t) throws InterruptedException {

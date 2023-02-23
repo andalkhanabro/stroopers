@@ -26,7 +26,7 @@ public class ScoreboardUI {
 
     public boolean userWantsToDelete() {
         System.out.print("\nDo you want to delete the score you just added? (Incorrect spelling, uncool nickname etc..)"
-                + "");
+                + " ");
         Scanner userInput = new Scanner(System.in);
 
         return userInput.nextBoolean();

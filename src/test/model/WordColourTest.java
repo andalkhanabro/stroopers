@@ -5,7 +5,10 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class WordColourTest {
 
@@ -33,5 +36,80 @@ class WordColourTest {
     }
 
 
+    @Test
+    void randomColorIndexTest() {
+
+        int count = 0;
+
+        while (count < 10000) {
+
+        int output = wordColour.randomColorIndex();
+
+        assertTrue(0 <= output && output <= 6);
+
+        count++; }
+
+    }
+
+    @Test
+    void randomSpellingIndexTest() {
+
+        int count = 0;
+
+        while (count < 10000) {
+
+        int output = wordColour.randomSpellingIndex();
+        assertTrue(0 <= output && output <= 6);
+
+        count++;
+
+        }
+
+    }
+
+
+    @Test
+    void chooseRandomColorNameTest() {
+
+        int count = 0;
+
+        while (count < 10000) {
+
+        String colorName = wordColour.chooseRandomColorName();
+
+        boolean result = (Objects.equals(colorName, "black")) || (Objects.equals(colorName, "red")) ||
+                (Objects.equals(colorName, "white")) ||
+                (Objects.equals(colorName, "blue")) || (Objects.equals(colorName, "cyan")) ||
+                (Objects.equals(colorName, "yellow")) || (Objects.equals(colorName, "green"));
+
+        assertTrue(result);
+
+        count++;
+        }
+
+    }
+
+
+    @Test
+    void chooseRandomSpellingTest() {
+
+        int count = 0;
+
+        while (count < 10000) {
+
+        String spelling = wordColour.chooseSpellingOfColor();
+
+        boolean result = (Objects.equals(spelling, "BLACK")) || (Objects.equals(spelling, "RED")) ||
+                (Objects.equals(spelling, "WHITE")) ||
+                (Objects.equals(spelling, "BLUE")) || (Objects.equals(spelling, "CYAN")) ||
+                (Objects.equals(spelling, "YELLOW")) || (Objects.equals(spelling, "GREEN"));
+
+        assertTrue(result);
+
+        count++;
+
+        }
+
+    }
 
 }

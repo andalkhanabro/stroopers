@@ -5,9 +5,9 @@ import java.util.Random;
 
 public class WordColour {
 
-    private final String[] colors = {"black", "red", "green", "yellow", "blue", "cyan", "white"};
+    public final String[] colors = {"black", "red", "green", "yellow", "blue", "cyan", "white"};
 
-    private final String[] spellings = {"BLACK", "WHITE", "YELLOW", "BLUE", "GREEN", "RED", "CYAN"};
+    public final String[] spellings = {"BLACK", "WHITE", "YELLOW", "BLUE", "GREEN", "RED", "CYAN"};
     Random spellingIndex = new Random();
 
     // EFFECTS: Generates a random index for the array of colors available
