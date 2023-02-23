@@ -9,7 +9,7 @@ public class StroopGame {
     public static void main(String[] args) throws InterruptedException {
 
         GamePanel game = new GamePanel();
-        game.makeFirstGame();
+        GamePanel.makeFirstGame();
 
     }
 }
