@@ -3,7 +3,9 @@ package ui;
 import model.Answer;
 import model.Score;
 import model.ScoreBoard;
-import model.WordColour;
+import model.Word;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class GamePanel {
@@ -28,11 +30,38 @@ public class GamePanel {
         return askUser.nextBoolean();
     }
 
+    public static void displayScoreboard(String name, boolean userWantsToAdd, int currentPoints, ScoreBoard sb) {
+
+        if (userWantsToAdd) {
+            Score newScore = new Score(name, currentPoints);
+            sb.addScore(newScore);
+
+            Scanner displayScoreboard = new Scanner(System.in);
+
+            System.out.print("\nDo you want to view a sorted scoreboard with your score? ");
+
+            if (displayScoreboard.nextBoolean()) {
+
+                sb.rankScoreboard();
+                List<String> entries = sb.mapScoresToScoreEntries(); // this has mapped entries
+                new ScoreboardUI().printScoreEntries(entries);
+                int rank = sb.determineRank(newScore);
+                int allGames = sb.scoreboardSize();
+
+                new ScoreboardUI().printPerformanceStats(rank, allGames);
+            }
+
+            sb.deleteScore(new ScoreboardUI().userWantsToDelete());
+
+        }
+
+    }
+
 
     public static void runStroopEffect() throws InterruptedException {
 
         boolean keepGameGoing = true;
-        WordColour w1 = new WordColour();
+        Word w1 = new Word();
         Score currentScore = new Score();
 
         while (keepGameGoing) {
@@ -49,14 +78,16 @@ public class GamePanel {
 
             } else {
                 keepGameGoing = false;
-                new ScoreUI().printScoreDetails(currentScore);
-                String name = new ScoreboardUI().getNameFromUser();
+                new ScoreUI().printScoreDetails(currentScore); // current score is here
+                String name = new ScoreboardUI().getNameFromUser(); // name is here
 
-                scoreboard.askAfterGameEnds(name, new ScoreboardUI().userWantsToAdd(), currentScore.getPoints());
+                GamePanel.displayScoreboard(name, new ScoreboardUI().userWantsToAdd(), currentScore.getPoints(),
+                        scoreboard);
                 makeNextGames();
             }
         }
     }
+
 
     public static void printCountdown() throws InterruptedException {
         System.out.println("3...");

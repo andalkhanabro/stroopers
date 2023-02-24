@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ScoreboardUI {
@@ -45,6 +46,12 @@ public class ScoreboardUI {
 
         System.out.println("\nYour rank is " + rank + " amongst " + numberOfGames + " total games played.");
 
+    }
+
+    public void printScoreEntries(List<String> mappedEntries) {
+        for (String s: mappedEntries) {
+            System.out.println(s);
+        }
     }
 
 }

@@ -4,7 +4,8 @@ import java.lang.reflect.Array;
 
 public class Answer {
 
-    // EFFECTS: Generates correct answer for word on terminal
+    // REQUIRES: trueColor cannot be null
+    // EFFECTS: Generates correct answer for word based on its true color
     public Character generateCorrectAnswer(String trueColor) { // the input to this would be chooseRandomColorName
 
         char[] asArray = trueColor.toCharArray();

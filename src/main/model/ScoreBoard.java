@@ -1,6 +1,6 @@
 package model;
 
-// a collection of Scores of users who play the game, displayed in order of rank (or attempts?)
+// a collection of Scores of users who play the game, sorted in order of decreasing points
 
 import ui.ScoreboardUI;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class ScoreBoard {
     }
 
     // MODIFIES: this
-    // EFFECTS: Adds current score to the scoreboard
+    // EFFECTS: Adds the given score to the scoreboard
     public void addScore(Score s) {
         this.scoreBoard.add(s);
     }
@@ -78,12 +78,19 @@ public class ScoreBoard {
     // REQUIRES:
     // MODIFIES:
     // EFFECTS: displays the current Scoreboard after it has been sorted
-    public void displayScoreboard() {
-        ScoreboardUI uiScoreboard = new ScoreboardUI();
-        uiScoreboard.printScoreBoardOnTerminal();
+
+
+    // REQUIRES: scoreboard is not empty
+    // EFFECTS: maps scores of scoreboards to a list of strings in a displayable format
+    public List<String> mapScoresToScoreEntries() {
+
+        List<String> entries = new ArrayList<>();
+
         for (Score s: this.scoreBoard) {
-            uiScoreboard.printEntries(s.toString());
+            entries.add(s.toString());
         }
+
+        return entries;
     }
 
     // EFFECTS: Determines the rank of the player in the scoreboard
@@ -92,24 +99,4 @@ public class ScoreBoard {
         return this.scoreBoard.indexOf(s) + 1;
     }
 
-
-    // EFFECTS:
-    public void askAfterGameEnds(String name, boolean userWantsToAdd, int currentPoints) {
-
-        if (userWantsToAdd) {
-            Score newScore = new Score(name, currentPoints);
-            this.scoreBoard.add(newScore);
-
-            this.rankScoreboard();
-            this.displayScoreboard();
-            int rank = this.determineRank(newScore);
-            int allGames = this.scoreboardSize();
-
-            new ScoreboardUI().printPerformanceStats(rank, allGames);
-            this.deleteScore(new ScoreboardUI().userWantsToDelete());
-            this.displayScoreboard();
-
-        }
-
-    }
 }

@@ -6,6 +6,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ScoreBoardTest {
@@ -170,6 +172,26 @@ public class ScoreBoardTest {
         assertEquals(3,scoreboard2.determineRank(score1));
 
     }
+
+    @Test
+    void mapScoresToScoreEntriesTest() {
+
+        scoreboard2.addScore(score1);
+        scoreboard2.addScore(score2);
+        scoreboard2.addScore(score3);
+        scoreboard2.addScore(score4);
+
+        List<String> entries = scoreboard2.mapScoresToScoreEntries();
+
+        assertEquals(4, entries.size());
+        assertEquals(score1.toString(), entries.get(0));
+        assertEquals(score2.toString(), entries.get(1));
+        assertEquals(score3.toString(), entries.get(2));
+        assertEquals(score4.toString(), entries.get(3));
+
+    }
+
+
 
 
 

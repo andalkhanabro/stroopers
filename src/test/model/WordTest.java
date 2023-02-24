@@ -10,15 +10,15 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class WordColourTest {
+class WordTest {
 
-    WordColour wordColour;
+    Word wordColour;
 
 
     @BeforeEach
     void setup() {
 
-        wordColour = new WordColour();
+        wordColour = new Word();
     }
 
 
