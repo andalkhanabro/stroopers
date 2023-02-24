@@ -16,13 +16,12 @@ public class Answer {
     // EFFECTS: Compares user answer to true answer and returns true if answer matches, else false
     public boolean isUserAnswerCorrect(String userInput, String trueColor) {
 
+        Character correctAnswer = (generateCorrectAnswer(trueColor));
+        boolean isOneLetter = (userInput.length() == 1);
         char first = userInput.charAt(0);
-        return first == (generateCorrectAnswer(trueColor));
+        return ((first == correctAnswer || first == Character.toUpperCase(correctAnswer)) && isOneLetter);
 
     }
-
-
-
 
 
 }

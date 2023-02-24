@@ -138,7 +138,7 @@ public class ScoreBoardTest {
         assertEquals(3,scoreboard1.determineRank(score1));
         assertEquals(4,scoreboard1.determineRank(score2));
 
-        // sort by points first, then determine rank
+        // sort by points first, then determine rank is determined
 
         scoreboard2.addScore(score1);
         scoreboard2.addScore(score2);
@@ -169,17 +169,6 @@ public class ScoreBoardTest {
         assertEquals(score4.toString(), entries.get(3));
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

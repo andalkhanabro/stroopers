@@ -34,6 +34,8 @@ public class AnswerTest {
     @Test
     void isUserAnswerCorrectTest() {
 
+        // if first letter of true color is entered in lowercase
+
         assertTrue(answer1.isUserAnswerCorrect("r", "red"));
         assertTrue(answer1.isUserAnswerCorrect("b", "black"));
         assertTrue(answer1.isUserAnswerCorrect("b", "blue"));
@@ -41,17 +43,20 @@ public class AnswerTest {
         assertTrue(answer1.isUserAnswerCorrect("g", "green"));
         assertTrue(answer1.isUserAnswerCorrect("c", "cyan"));
         assertTrue(answer1.isUserAnswerCorrect("w", "white"));
+
+        // if first letter of true color is entered in uppercase
+
+        assertTrue(answer1.isUserAnswerCorrect("C", "cyan"));
+        assertTrue(answer1.isUserAnswerCorrect("G", "green"));
+
     }
 
     @Test
     void isUserAnswerNotCorrectTest() {
 
-        assertFalse(answer1.isUserAnswerCorrect("R", "red"));
         assertFalse(answer1.isUserAnswerCorrect("G", "black"));
         assertFalse(answer1.isUserAnswerCorrect("g", "blue"));
-
         assertFalse(answer1.isUserAnswerCorrect("word", "green"));
-        assertFalse(answer1.isUserAnswerCorrect("C", "cyan"));
         assertFalse(answer1.isUserAnswerCorrect("Black", "white"));
 
     }

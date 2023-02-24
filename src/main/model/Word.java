@@ -10,13 +10,13 @@ public class Word {
 
     public final String[] spellings = {"BLACK", "WHITE", "YELLOW", "BLUE", "GREEN", "RED", "CYAN"};
 
-    // EFFECTS: Generates a random index for the array of colors available
+    // EFFECTS: Generates a random index for the array of colors available for word
     public int randomColorIndex() {
         Random colorIndex = new Random();
         return colorIndex.nextInt(7);
     }
 
-    // EFFECTS: Generates a random index for the array of spellings of colors available
+    // EFFECTS: Generates a random index for the array of spellings of colors available for word
     public int randomSpellingIndex() {
         Random spellingIndex = new Random();
         return spellingIndex.nextInt(7);

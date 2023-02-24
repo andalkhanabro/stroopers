@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ScoreboardUI {
-    public void printEntries(String s) {
-        System.out.println(s);
-    }
 
     public void printScoreBoardOnTerminal() {
         System.out.println("\n       SCOREBOARD");

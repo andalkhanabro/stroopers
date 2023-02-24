@@ -6,13 +6,17 @@ import model.ScoreBoard;
 import model.Word;
 import java.util.Scanner;
 
+
 public class GamePanel {
 
     static ScoreBoard scoreboard = new ScoreBoard();
 
-    public static void delayTime(int t) throws InterruptedException {
-        Thread.sleep(t);
-
+    public static void delayTime(int t) {
+        try {
+            Thread.sleep(t);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static boolean startGame() {
@@ -21,7 +25,7 @@ public class GamePanel {
         return askUser.nextBoolean();
     }
 
-    public static boolean startGameFirst() {
+    public static boolean startFirstGame() {
         System.out.println("\nWelcome to Stroopers! \n\nA word will be displayed on the screen. It will spell a color "
                 + "and "
                 + "have a color. \nTo earn a point, you will have to enter the first letter of the true color. "
@@ -64,7 +68,7 @@ public class GamePanel {
     }
 
 
-    public static void runStroopEffect() throws InterruptedException {
+    public static void runStroopEffect() {
 
         boolean keepGameGoing = true;
         Word w1 = new Word();
@@ -76,7 +80,7 @@ public class GamePanel {
             delayTime(500);
             System.out.println(w1.ansiCodeOfColor(color) + w1.chooseSpellingOfColor());
             System.out.println("\n");
-            Scanner userAnswer = new Scanner(System.in); // userAnswer needs to be timed here!
+            Scanner userAnswer = new Scanner(System.in);
             Answer firstAnswer = new Answer();
 
 
@@ -89,7 +93,6 @@ public class GamePanel {
                 keepGameGoing = false;
                 new ScoreUI().printScoreDetails(currentScore);
                 String name = new ScoreboardUI().getNameFromUser();
-
                 GamePanel.displayScoreboard(name, new ScoreboardUI().userWantsToAdd(), currentScore.getPoints(),
                         scoreboard);
                 makeNextGames();
@@ -98,7 +101,7 @@ public class GamePanel {
     }
 
 
-    public static void printCountdown() throws InterruptedException {
+    public static void printCountdown() {
         System.out.println("3...");
         delayTime(1000);
         System.out.println("2...");
@@ -109,11 +112,11 @@ public class GamePanel {
         delayTime(200);
     }
 
-    public static void makeFirstGame() throws InterruptedException {
+    public static void makeFirstGame() {
 
-        if (startGameFirst()) {
+        if (startFirstGame()) {
             System.out.println("\nOkay! Game starting in.. ");
-            Thread.sleep(300);
+            delayTime(300);
             printCountdown();
             runStroopEffect();
 
@@ -124,11 +127,11 @@ public class GamePanel {
 
     }
 
-    public static void makeNextGames() throws InterruptedException {
+    public static void makeNextGames() {
 
         if (startGame()) {
             System.out.println("\nOkay! Game starting in.. ");
-            Thread.sleep(300);
+            delayTime(300);
             printCountdown();
             runStroopEffect();
 
