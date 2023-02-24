@@ -4,8 +4,6 @@ import model.Answer;
 import model.Score;
 import model.ScoreBoard;
 import model.Word;
-
-import java.util.List;
 import java.util.Scanner;
 
 public class GamePanel {
@@ -24,7 +22,10 @@ public class GamePanel {
     }
 
     public static boolean startGameFirst() {
-        System.out.println("\nWelcome to Stroopers! Fight the confusion.. \n \n- Enter true to play! "
+        System.out.println("\nWelcome to Stroopers! \n\nA word will be displayed on the screen. It will spell a color "
+                + "and "
+                + "have a color. \nTo earn a point, you will have to enter the first letter of the true color. "
+                + "So, fight the confusion..  \n \n- Enter true to play! "
                 + "\n- Enter false to exit! ");
         Scanner askUser = new Scanner(System.in);
         return askUser.nextBoolean();
@@ -36,22 +37,27 @@ public class GamePanel {
             Score newScore = new Score(name, currentPoints);
             sb.addScore(newScore);
 
-            Scanner displayScoreboard = new Scanner(System.in);
+            Scanner doesUserWantDisplay = new Scanner(System.in);
+            System.out.print("\nDo you want to view a sorted scoreboard with your score? \n-Enter true for yes, false"
+                    + " for no. ");
 
-            System.out.print("\nDo you want to view a sorted scoreboard with your score? ");
-
-            if (displayScoreboard.nextBoolean()) {
+            if (doesUserWantDisplay.nextBoolean()) {
 
                 sb.rankScoreboard();
-                List<String> entries = sb.mapScoresToScoreEntries(); // this has mapped entries
-                new ScoreboardUI().printScoreEntries(entries);
+                new ScoreboardUI().printScoreBoardHelper(sb);
                 int rank = sb.determineRank(newScore);
                 int allGames = sb.scoreboardSize();
 
-                new ScoreboardUI().printPerformanceStats(rank, allGames);
+                if (new ScoreboardUI().printRankIfUserAsks()) {
+
+                    new ScoreboardUI().printPerformanceStats(rank, allGames);
+                }
             }
 
-            sb.deleteScore(new ScoreboardUI().userWantsToDelete());
+            if (new ScoreboardUI().userWantsToDelete()) {
+                sb.deleteScore(newScore);
+                new ScoreboardUI().printScoreBoardHelper(sb);
+            }
 
         }
 
@@ -70,16 +76,19 @@ public class GamePanel {
             delayTime(500);
             System.out.println(w1.ansiCodeOfColor(color) + w1.chooseSpellingOfColor());
             System.out.println("\n");
-            Scanner userAnswer = new Scanner(System.in);
+            Scanner userAnswer = new Scanner(System.in); // userAnswer needs to be timed here!
             Answer firstAnswer = new Answer();
 
-            if (firstAnswer.isUserAnswerCorrect(userAnswer.next(), color)) {
+
+            String whatUserEntered = userAnswer.next();
+
+            if (firstAnswer.isUserAnswerCorrect(whatUserEntered, color)) {
                 currentScore.updatePointCount();
 
             } else {
                 keepGameGoing = false;
-                new ScoreUI().printScoreDetails(currentScore); // current score is here
-                String name = new ScoreboardUI().getNameFromUser(); // name is here
+                new ScoreUI().printScoreDetails(currentScore);
+                String name = new ScoreboardUI().getNameFromUser();
 
                 GamePanel.displayScoreboard(name, new ScoreboardUI().userWantsToAdd(), currentScore.getPoints(),
                         scoreboard);

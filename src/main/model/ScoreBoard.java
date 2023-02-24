@@ -24,12 +24,10 @@ public class ScoreBoard {
 
     // REQUIRES: scoreboard is not empty
     // MODIFIES: this
-    // EFFECTS: Deletes the most recently added score from the scoreboard
-    public void deleteScore(boolean userWantsToDelete) {
-        if (userWantsToDelete) {
+    // EFFECTS: Deletes the recently added score from the scoreboard
+    public void deleteScore(Score s) {
 
-            this.scoreBoard.remove(scoreBoard.size() - 1);
-        }
+        this.scoreBoard.remove(s);
 
     }
 

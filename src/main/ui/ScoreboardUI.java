@@ -1,5 +1,7 @@
 package ui;
 
+import model.ScoreBoard;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +16,7 @@ public class ScoreboardUI {
     }
 
     public boolean userWantsToAdd() {
-        System.out.print("\nDo you want to add your score? ");
+        System.out.println("\nDo you want to add your score? \n-Enter true for yes, false for no. ");
         Scanner userInput = new Scanner(System.in);
 
         if (userInput.nextBoolean()) {
@@ -27,10 +29,19 @@ public class ScoreboardUI {
 
     public boolean userWantsToDelete() {
         System.out.print("\nDo you want to delete the score you just added? (Incorrect spelling, uncool nickname etc..)"
-                + " ");
+                + "\n-Enter true for yes, false for no. ");
         Scanner userInput = new Scanner(System.in);
 
         return userInput.nextBoolean();
+
+    }
+
+
+    public void printScoreBoardHelper(ScoreBoard sb) {
+
+        new ScoreboardUI().printScoreBoardOnTerminal();
+        List<String> entries = sb.mapScoresToScoreEntries();
+        new ScoreboardUI().printScoreEntries(entries);
 
     }
 
@@ -42,9 +53,16 @@ public class ScoreboardUI {
 
     }
 
+    public boolean printRankIfUserAsks() {
+        System.out.print("\nDo you want to know your rank in the scoreboard? \n-Enter true for yes, false for no. ");
+        Scanner userRank = new Scanner(System.in);
+        return userRank.nextBoolean();
+
+    }
+
     public void printPerformanceStats(int rank, int numberOfGames) {
 
-        System.out.println("\nYour rank is " + rank + " amongst " + numberOfGames + " total games played.");
+        System.out.println("\nYour rank is " + rank + " amongst " + numberOfGames + " scores on the board.");
 
     }
 

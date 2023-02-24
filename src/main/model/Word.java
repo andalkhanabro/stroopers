@@ -1,6 +1,7 @@
 package model;
 
 import java.lang.reflect.Array;
+import java.util.Objects;
 import java.util.Random;
 
 public class Word {
@@ -8,7 +9,6 @@ public class Word {
     public final String[] colors = {"black", "red", "green", "yellow", "blue", "cyan", "white"};
 
     public final String[] spellings = {"BLACK", "WHITE", "YELLOW", "BLUE", "GREEN", "RED", "CYAN"};
-    Random spellingIndex = new Random();
 
     // EFFECTS: Generates a random index for the array of colors available
     public int randomColorIndex() {
@@ -18,6 +18,7 @@ public class Word {
 
     // EFFECTS: Generates a random index for the array of spellings of colors available
     public int randomSpellingIndex() {
+        Random spellingIndex = new Random();
         return spellingIndex.nextInt(7);
     }
 
@@ -34,24 +35,24 @@ public class Word {
     // REQUIRES: givenColor cannot be null or other than the ones specified in the array of available colors
     // EFFECTS: returns an equivalent ANSI code randomly to print colored text on terminal
     public String ansiCodeOfColor(String givenColor) {
-        if (givenColor == "red") {
+        if (Objects.equals(givenColor, "red")) {
 
             return "\u001B[31m";
-        } else if (givenColor == "green") {
+        } else if (Objects.equals(givenColor, "green")) {
 
             return "\u001B[32m";
-        } else if (givenColor == "blue") {
+        } else if (Objects.equals(givenColor, "blue")) {
 
             return "\u001B[34m";
-        } else if (givenColor == "cyan") {
+        } else if (Objects.equals(givenColor, "cyan")) {
 
             return "\u001B[36m";
 
-        } else if (givenColor == "yellow") {
+        } else if (Objects.equals(givenColor, "yellow")) {
 
             return "\u001B[33m";
 
-        } else if (givenColor == "black") {
+        } else if (Objects.equals(givenColor, "black")) {
 
             return "\u001B[30m";
 

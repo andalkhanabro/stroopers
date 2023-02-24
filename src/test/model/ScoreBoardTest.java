@@ -69,7 +69,7 @@ public class ScoreBoardTest {
         assertEquals(4, scoreboard1.scoreboardSize());
         assertEquals(score4, scoreboard1.getScore(3));
 
-        scoreboard1.deleteScore(true);
+        scoreboard1.deleteScore(score4);
 
         assertEquals(3, scoreboard1.scoreboardSize());
         assertEquals(score3, scoreboard1.getScore(2));
@@ -77,27 +77,6 @@ public class ScoreBoardTest {
         assertEquals(score1, scoreboard1.getScore(0));
     }
 
-
-    @Test
-    void deleteScoreWhenUserDoesNotWantTest() {
-
-        scoreboard1.addScore(score1);
-        scoreboard1.addScore(score2);
-        scoreboard1.addScore(score3);
-        scoreboard1.addScore(score4);
-
-        assertEquals(4, scoreboard1.scoreboardSize());
-        assertEquals(score4, scoreboard1.getScore(3));
-
-        scoreboard1.deleteScore(false);
-
-        assertEquals(4, scoreboard1.scoreboardSize());
-        assertEquals(score4, scoreboard1.getScore(3));
-        assertEquals(score3, scoreboard1.getScore(2));
-        assertEquals(score2, scoreboard1.getScore(1));
-        assertEquals(score1, scoreboard1.getScore(0));
-
-    }
 
     @Test
     void getScoreTest() {
