@@ -8,8 +8,7 @@ import java.util.Scanner;
 
 
 public class GamePanel {
-
-    static ScoreBoard scoreboard = new ScoreBoard();
+    private static ScoreBoard scoreboard = new ScoreBoard();
 
     public static void delayTime(int t) {
         try {
@@ -82,7 +81,6 @@ public class GamePanel {
             System.out.println("\n");
             Scanner userAnswer = new Scanner(System.in);
             Answer firstAnswer = new Answer();
-
 
             String whatUserEntered = userAnswer.next();
 
