@@ -58,6 +58,9 @@ public class AnswerTest {
         assertFalse(answer1.isUserAnswerCorrect("g", "blue"));
         assertFalse(answer1.isUserAnswerCorrect("word", "green"));
         assertFalse(answer1.isUserAnswerCorrect("Black", "white"));
+        assertFalse(answer1.isUserAnswerCorrect("Black", "BL"));
+        assertFalse(answer1.isUserAnswerCorrect("Black", "Bl"));
+
 
     }
 
