@@ -1,8 +1,7 @@
 package model;
 
-// a collection of Scores of users who play the game, sorted in order of decreasing points
+// A collection of Scores of users who play the game
 
-import ui.ScoreboardUI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +36,7 @@ public class ScoreBoard {
         return this.scoreBoard.get(index);
     }
 
-    // REQUIRES: a non-empty scoreboard
+    // REQUIRES: scoreboard should not be empty
     // MODIFIES: this
     // EFFECTS: ranks all scores present in scoreboard in order of decreasing point count
 
@@ -67,6 +66,7 @@ public class ScoreBoard {
         }
         Collections.reverse(this.scoreBoard);
     }
+
 
     // EFFECTS: returns the total number of times the game has been played by all users (the scoreboard size)
     public int scoreboardSize() {

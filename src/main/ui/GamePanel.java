@@ -8,8 +8,11 @@ import java.util.Scanner;
 
 
 public class GamePanel {
-    private static ScoreBoard scoreboard = new ScoreBoard();
+    private static final ScoreBoard scoreboard = new ScoreBoard();
 
+
+    // REQUIRES: t should be greater than 0
+    // EFFECTS: delays the execution of the program by t milliseconds
     public static void delayTime(int t) {
         try {
             Thread.sleep(t);
@@ -18,12 +21,14 @@ public class GamePanel {
         }
     }
 
-    public static boolean startGame() {
+    // EFFECTS: asks user if they want to play the game again
+    public static boolean startNextGames() {
         System.out.print("\nDo you want to play again? ");
         Scanner askUser = new Scanner(System.in);
         return askUser.nextBoolean();
     }
 
+    // EFFECTS: asks the user if they want to play the game for the first time and introduces the objective
     public static boolean startFirstGame() {
         System.out.println("\nWelcome to Stroopers! \n\nA word will be displayed on the screen. It will spell a color "
                 + "and "
@@ -34,6 +39,8 @@ public class GamePanel {
         return askUser.nextBoolean();
     }
 
+    // EFFECTS: asks user if they want to add a score and view a sorted scoreboard, and displays it with a rank if true.
+    // EFFECTS: asks user if they want to delete the score and deletes it if true
     public static void displayScoreboard(String name, boolean userWantsToAdd, int currentPoints, ScoreBoard sb) {
 
         if (userWantsToAdd) {
@@ -51,7 +58,7 @@ public class GamePanel {
                 int rank = sb.determineRank(newScore);
                 int allGames = sb.scoreboardSize();
 
-                if (new ScoreboardUI().printRankIfUserAsks()) {
+                if (new ScoreboardUI().doesUserWantRank()) {
 
                     new ScoreboardUI().printPerformanceStats(rank, allGames);
                 }
@@ -67,6 +74,8 @@ public class GamePanel {
     }
 
 
+    // EFFECTS: runs the game by printing Stroop words on the screen till user enters correct answers, ends game with
+    // scoreboard summary option when user fails
     public static void runStroopEffect() {
 
         boolean keepGameGoing = true;
@@ -99,6 +108,7 @@ public class GamePanel {
     }
 
 
+    // EFFECTS: prints a countdown for the game before it starts
     public static void printCountdown() {
         System.out.println("3...");
         delayTime(1000);
@@ -110,6 +120,7 @@ public class GamePanel {
         delayTime(200);
     }
 
+    // EFFECTS: makes game if user wants to start it, else prints the game terminating message
     public static void makeFirstGame() {
 
         if (startFirstGame()) {
@@ -125,9 +136,10 @@ public class GamePanel {
 
     }
 
+    // makes next games as long as the user wants to play, else prints the terminating message
     public static void makeNextGames() {
 
-        if (startGame()) {
+        if (startNextGames()) {
             System.out.println("\nOkay! Game starting in.. ");
             delayTime(300);
             printCountdown();

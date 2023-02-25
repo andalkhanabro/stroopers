@@ -14,7 +14,6 @@ class WordTest {
 
     Word wordColour;
 
-
     @BeforeEach
     void setup() {
 
@@ -45,7 +44,7 @@ class WordTest {
 
         int output = wordColour.randomColorIndex();
 
-        assertTrue(0 <= output && output <= 6);
+        assertTrue(0 <= output && output <= 7);
 
         count++; }
 
@@ -59,7 +58,7 @@ class WordTest {
         while (count < 10000) {
 
         int output = wordColour.randomSpellingIndex();
-        assertTrue(0 <= output && output <= 6);
+        assertTrue(0 <= output && output <= 7);
 
         count++;
 
@@ -80,7 +79,8 @@ class WordTest {
         boolean result = (Objects.equals(colorName, "black")) || (Objects.equals(colorName, "red")) ||
                 (Objects.equals(colorName, "white")) ||
                 (Objects.equals(colorName, "blue")) || (Objects.equals(colorName, "cyan")) ||
-                (Objects.equals(colorName, "yellow")) || (Objects.equals(colorName, "green"));
+                (Objects.equals(colorName, "yellow")) || (Objects.equals(colorName, "green")) ||
+                (Objects.equals(colorName, "purple"));
 
         assertTrue(result);
 
@@ -102,7 +102,8 @@ class WordTest {
         boolean result = (Objects.equals(spelling, "BLACK")) || (Objects.equals(spelling, "RED")) ||
                 (Objects.equals(spelling, "WHITE")) ||
                 (Objects.equals(spelling, "BLUE")) || (Objects.equals(spelling, "CYAN")) ||
-                (Objects.equals(spelling, "YELLOW")) || (Objects.equals(spelling, "GREEN"));
+                (Objects.equals(spelling, "YELLOW")) || (Objects.equals(spelling, "GREEN")) ||
+                (Objects.equals(spelling, "PURPLE"));
 
         assertTrue(result);
 

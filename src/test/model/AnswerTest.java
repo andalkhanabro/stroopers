@@ -28,6 +28,7 @@ public class AnswerTest {
         assertEquals('c', answer1.generateCorrectAnswer("cyan"));
         assertEquals('g', answer1.generateCorrectAnswer("green"));
         assertEquals('y', answer1.generateCorrectAnswer("yellow"));
+        assertEquals('p', answer1.generateCorrectAnswer("purple"));
 
     }
 
@@ -39,6 +40,7 @@ public class AnswerTest {
         assertTrue(answer1.isUserAnswerCorrect("r", "red"));
         assertTrue(answer1.isUserAnswerCorrect("b", "black"));
         assertTrue(answer1.isUserAnswerCorrect("b", "blue"));
+        assertTrue(answer1.isUserAnswerCorrect("p", "purple"));
 
         assertTrue(answer1.isUserAnswerCorrect("g", "green"));
         assertTrue(answer1.isUserAnswerCorrect("c", "cyan"));
@@ -46,6 +48,7 @@ public class AnswerTest {
 
         // if first letter of true color is entered in uppercase
 
+        assertTrue(answer1.isUserAnswerCorrect("P", "purple"));
         assertTrue(answer1.isUserAnswerCorrect("C", "cyan"));
         assertTrue(answer1.isUserAnswerCorrect("G", "green"));
 
@@ -60,7 +63,7 @@ public class AnswerTest {
         assertFalse(answer1.isUserAnswerCorrect("Black", "white"));
         assertFalse(answer1.isUserAnswerCorrect("Black", "BL"));
         assertFalse(answer1.isUserAnswerCorrect("Black", "Bl"));
-
+        assertFalse(answer1.isUserAnswerCorrect("Purple", "Pu"));
 
     }
 
