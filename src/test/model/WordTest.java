@@ -31,6 +31,7 @@ class WordTest {
         assertEquals("\u001B[33m", wordColour.ansiCodeOfColor("yellow"));
         assertEquals("\u001B[30m", wordColour.ansiCodeOfColor("black"));
         assertEquals("\u001B[37m", wordColour.ansiCodeOfColor("white"));
+        assertEquals("\u001b[35m", wordColour.ansiCodeOfColor("purple"));
 
     }
 

@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class GamePanel {
     private static final ScoreBoard scoreboard = new ScoreBoard();
 
-
     // REQUIRES: t should be greater than 0
     // EFFECTS: delays the execution of the program by t milliseconds
     public static void delayTime(int t) {
