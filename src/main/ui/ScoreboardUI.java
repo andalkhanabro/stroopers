@@ -5,12 +5,13 @@ import model.ScoreBoard;
 import java.util.List;
 import java.util.Scanner;
 
+// ScoreboardUI has user interaction methods for the Scoreboard
 public class ScoreboardUI {
 
     // EFFECTS: Prints the scoreboard title on the terminal
     public void printScoreBoardOnTerminal() {
         System.out.println("\n       SCOREBOARD");
-        System.out.println("");
+        System.out.println(" ");
     }
 
     // EFFECTS: Asks the user if they want to add their score after each game ends
@@ -54,7 +55,7 @@ public class ScoreboardUI {
         return name.next();
     }
 
-    // EFFECTS: Asks the user if they want to know their rank to other games
+    // EFFECTS: Asks the user if they want to know their rank relative to other games
     public boolean doesUserWantRank() {
         System.out.print("\nDo you want to know your rank in the scoreboard? \n-Enter true for yes, false for no. ");
         Scanner userRank = new Scanner(System.in);
@@ -65,7 +66,8 @@ public class ScoreboardUI {
     // EFFECTS: Prints rank of user amongst total games played
     public void printPerformanceStats(int rank, int numberOfGames) {
 
-        System.out.println("\nYour rank is " + rank + " amongst " + numberOfGames + " scores on the board.");
+        System.out.println("\nYour rank for this attempt is " + rank + " amongst " + numberOfGames + " "
+                + "scores on the board.");
 
     }
 

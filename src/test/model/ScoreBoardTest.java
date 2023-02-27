@@ -107,14 +107,14 @@ public class ScoreBoardTest {
     }
 
     @Test
-    void rankScoreBoardTest() {
+    void sortScoreBoardTest() {
 
         scoreboard1.addScore(score1);
         scoreboard1.addScore(score2);
         scoreboard1.addScore(score3);
         scoreboard1.addScore(score4);
 
-        scoreboard1.rankScoreboard();
+        scoreboard1.sortScoreBoard();
 
         assertEquals(score4, scoreboard1.getScore(0));
         assertEquals(score3, scoreboard1.getScore(1));

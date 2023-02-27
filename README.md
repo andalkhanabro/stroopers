@@ -36,3 +36,16 @@ things. Things we know and things we don't know.
 - As a user, I want to be able to see my rank relative to other scores in the scoreboard 
 - As a user, I want to be able to remove my score from the scoreboard
 
+
+### Stretched User Stories (To Be Implemented)
+
+- Stroopers should fail/end when constrained time is over
+
+### Attributions 
+
+- I did not want to use the in-built sorting methods of Java for my _sortScoreboard_ method. So, I learnt one of the 
+sorting algorithms from YouTube and implemented the bubble sort algorithm in my code as per my needs. The exact video I 
+learnt it from is available [here.](https://youtu.be/g8qeaEd2jTc)
+- My project heavily relies on the ability to print colored text on the terminal. I studied about this and learnt about 
+internal ANSI codes and how they can be used to do so. The exact ANSI codes I used in my methods are available
+[here](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html).

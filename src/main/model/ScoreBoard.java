@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ScoreBoard {
 
-    private final List<Score> scoreBoard;
+    private List<Score> scoreBoard;
 
-    // EFFECTS: Creates an empty scoreboard for the game
+    // EFFECTS: Creates an empty scoreboard for the Stroop Game
     public ScoreBoard() {
         this.scoreBoard = new ArrayList<>();
     }
@@ -40,13 +40,13 @@ public class ScoreBoard {
     // MODIFIES: this
     // EFFECTS: ranks all scores present in scoreboard in order of decreasing point count
 
-    public void rankScoreboard() {
+    public void sortScoreBoard() {
 
-        boolean swapped = true;
+        boolean ranked = true;
 
-        while (swapped) {
+        while (ranked) {
 
-            swapped = false;
+            ranked = false;
 
             for (int i = 0; i < this.scoreboardSize() - 1; i++) {
 
@@ -56,7 +56,7 @@ public class ScoreBoard {
                 int nextScorePoints = this.scoreBoard.get(i + 1).getPoints();
 
                 if (currentScorePoints > nextScorePoints) {
-                    swapped = true;
+                    ranked = true;
                     this.scoreBoard.set(i, nextScore);
                     this.scoreBoard.set(i + 1, currentScore);
 
@@ -67,18 +67,14 @@ public class ScoreBoard {
         Collections.reverse(this.scoreBoard);
     }
 
-
     // EFFECTS: returns the total number of times the game has been played by all users (the scoreboard size)
     public int scoreboardSize() {
         return this.scoreBoard.size();
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS: displays the current Scoreboard after it has been sorted
-
 
     // REQUIRES: scoreboard is not empty
+    // MODIFIES: Score in scoreboard
     // EFFECTS: maps scores of scoreboards to a list of strings in a displayable format
     public List<String> mapScoresToScoreEntries() {
 
@@ -91,10 +87,15 @@ public class ScoreBoard {
         return entries;
     }
 
-    // EFFECTS: Determines the rank of the player in the scoreboard
-    public int determineRank(Score s) {
-        this.rankScoreboard();
-        return this.scoreBoard.indexOf(s) + 1;
+
+    // REQUIRES: Score cannot be null
+    // MODIFIES: this
+    /* EFFECTS: Determines the rank of the player in the scoreboard relative to other entries in the board after
+     * re-sorting it
+     */
+    public int determineRank(Score score) {
+        this.sortScoreBoard();
+        return this.scoreBoard.indexOf(score) + 1;
     }
 
 }

@@ -37,11 +37,12 @@ class WordTest {
 
 
     @Test
+    // runs the random method 10000 times and tests if the index returned lies between 0 and 7
     void randomColorIndexTest() {
 
         int count = 0;
 
-        while (count < 10000) {
+        while (count <= 10000) {
 
         int output = wordColour.randomColorIndex();
 
@@ -52,11 +53,12 @@ class WordTest {
     }
 
     @Test
+        // runs the random method 10000 times and tests if the index returned lies between 0 and 7
     void randomSpellingIndexTest() {
 
         int count = 0;
 
-        while (count < 10000) {
+        while (count <= 10000) {
 
         int output = wordColour.randomSpellingIndex();
         assertTrue(0 <= output && output <= 7);
@@ -69,6 +71,8 @@ class WordTest {
 
 
     @Test
+        // runs the random method 10000 times and tests if the String returned is from the available color names
+
     void chooseRandomColorNameTest() {
 
         int count = 0;
@@ -92,6 +96,7 @@ class WordTest {
 
 
     @Test
+        // runs the random method 10000 times and tests if the String returned is from the available color spellings
     void chooseRandomSpellingTest() {
 
         int count = 0;

@@ -4,21 +4,24 @@ import java.lang.reflect.Array;
 import java.util.Objects;
 import java.util.Random;
 
-// A class for the word of the Stroop Game with an array of spellings and colors
+// A class for each word of the Stroop Game with an array of spellings and colors available
 
 public class Word {
 
+    // available colors for each word
     public final String[] colors = {"black", "red", "green", "yellow", "blue", "cyan", "white", "purple"};
 
+    // spellings of those available colors
     public final String[] spellings = {"BLACK", "WHITE", "YELLOW", "BLUE", "GREEN", "RED", "PURPLE", "CYAN"};
 
-    // EFFECTS: Generates a random index for the array of colors available for word
+    // EFFECTS: Generates a random index for the array of colors available for the word between 0 and 7 inclusive
     public int randomColorIndex() {
         Random colorIndex = new Random();
         return colorIndex.nextInt(8);
     }
 
-    // EFFECTS: Generates a random index for the array of spellings of colors available for word
+    // EFFECTS: Generates a random index for the spellings of colors available for the word between 0 and 7 inclusive
+
     public int randomSpellingIndex() {
         Random spellingIndex = new Random();
         return spellingIndex.nextInt(8);
@@ -33,6 +36,7 @@ public class Word {
     public String chooseSpellingOfColor() {
         return (String) Array.get(spellings, randomSpellingIndex());
     }
+
 
     // REQUIRES: givenColor cannot be null or other than the ones specified in the array of available colors
     // EFFECTS: returns an equivalent ANSI code randomly to print colored text on terminal
