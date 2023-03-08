@@ -93,11 +93,6 @@ public class JsonWriterTest {
             fail("Fail test because exception is caught when it should not have been thrown in the first place.");
         }
 
-
-
-
-
-
     }
 
 

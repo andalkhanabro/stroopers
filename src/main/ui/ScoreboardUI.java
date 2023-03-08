@@ -37,7 +37,6 @@ public class ScoreboardUI {
 
     }
 
-
    // EFFECTS: Prints the scoreboard heading and entries together on the terminal
     public void printScoreBoardHelper(ScoreBoard sb) {
 

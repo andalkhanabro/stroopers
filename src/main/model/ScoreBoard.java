@@ -93,7 +93,6 @@ public class ScoreBoard implements Writable {
         return entries;
     }
 
-
     // REQUIRES: Score cannot be null
     // MODIFIES: this
     /* EFFECTS: Determines the rank of the player in the scoreboard relative to other entries in the board after
@@ -104,7 +103,7 @@ public class ScoreBoard implements Writable {
         return this.scoreBoard.indexOf(score) + 1;
     }
 
-    // EFFECTS:
+    // EFFECTS: returns a json object equivalent to scores in a given scoreboard
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -112,7 +111,7 @@ public class ScoreBoard implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this scoreboard as a JSON array
+    // EFFECTS: returns scores in this scoreboard as a JSON array
     private JSONArray scoresToJson() {
         JSONArray jsonArray = new JSONArray();
 

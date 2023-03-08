@@ -51,5 +51,5 @@ learnt it from is available [here.](https://youtu.be/g8qeaEd2jTc)
 - My project heavily relies on the ability to print colored text on the terminal. I studied about this and learnt about 
 internal ANSI codes and how they can be used to do so. The exact ANSI codes I used in my methods are available
 [here](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html).
-- I understood and modified a lot of the code given by the CPSC 210 team in the WorkRoomApp to implement data persistence
-in this application. 
+- I understood and modified a lot of the code given by the CPSC 210 team in the WorkRoomApp to implement and test 
+data persistence in my application. 

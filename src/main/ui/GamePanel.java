@@ -9,7 +9,6 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
 // the GamePanel class which manages the main UI for Stroop Game
@@ -20,7 +19,7 @@ public class GamePanel {
 
     private static JsonReader jsonReader;
 
-    private static final String JSON_STORE = "./data/scoreboard.json"; // destination where sb will be saved
+    private static final String JSON_STORE = "./data/scoreboard.json"; // destination where scoreboard will be saved
 
     // REQUIRES: t should be greater than 0
     // EFFECTS: delays the execution of the program by t milliseconds
@@ -126,7 +125,6 @@ public class GamePanel {
         }
     }
 
-
     // EFFECTS: Prints a countdown for the game before it starts
     private static void printCountdown() {
         System.out.println("3...");
@@ -148,11 +146,12 @@ public class GamePanel {
                 System.out.println("\nThe old scoreboard is printed below. ");
                 scoreboard = loadOldScoreboard();
                 new ScoreboardUI().printScoreBoardHelper(loadOldScoreboard());
+                delayTime(2000);
             } else {
                 System.out.println("\nData was not loaded. A new scoreboard will be made. ");
             }
             System.out.println("\nOkay! Game starting in.. ");
-            delayTime(400);
+            delayTime(300);
             printCountdown();
             runStroopEffect();
 
@@ -182,7 +181,8 @@ public class GamePanel {
         } else {
             if (doesUserWantToSave()) {
                 saveOldScoreboard();
-                System.out.println("\nGame exited and data has been saved. Thank you for playing!");
+                System.out.println("\nGame exited and data has been saved at" + JSON_STORE
+                        + ". Thank you for playing!");
             } else {
                 System.out.println("\nGame exited and data was not saved. Thank you for playing!");
             }
@@ -198,31 +198,28 @@ public class GamePanel {
     }
 
 
+    // EFFECTS: saves current scoreboard to file
     private static void saveOldScoreboard() {
         try {
             jsonWriter.open();
             jsonWriter.write(scoreboard);
             jsonWriter.close();
-            System.out.println("Saved scoreboard" + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            System.out.println("Unable to write to file while saving to " + JSON_STORE);
         }
 
     }
 
     // MODIFIES: this
-    // EFFECTS: loads workroom from file
+    // EFFECTS: loads old scoreboard from file
     private static ScoreBoard loadOldScoreboard() {
         try {
             scoreboard = jsonReader.read();
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            System.out.println("Cannot read from the given file path " + JSON_STORE);
         }
         return scoreboard;
 
-    }
-
-    private static void makeInitialScoreBoard() {
     }
 
 }
