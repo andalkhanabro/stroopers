@@ -104,6 +104,7 @@ public class ScoreBoard implements Writable {
         return this.scoreBoard.indexOf(score) + 1;
     }
 
+    // EFFECTS:
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -111,7 +112,7 @@ public class ScoreBoard implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns things in this scoreboard as a JSON array
     private JSONArray scoresToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -120,10 +121,5 @@ public class ScoreBoard implements Writable {
         }
 
         return jsonArray;
-    }
-
-    public ScoreBoard(String name) {
-        this.name = name;
-        this.scoreBoard = new ArrayList<>();
     }
 }
