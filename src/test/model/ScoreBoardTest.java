@@ -3,6 +3,8 @@ package model;
 
 // the test class for ScoreBoard
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -169,6 +171,50 @@ public class ScoreBoardTest {
         assertEquals(score4.toString(), entries.get(3));
 
     }
+
+    @Test
+    void testToJson() {
+        ScoreBoard testScoreboard = new ScoreBoard();
+        testScoreboard.addScore(score1);
+        testScoreboard.addScore(score2);
+
+       JSONArray scores =  testScoreboard.toJson().getJSONArray("scores");
+       JSONObject obj1 = (JSONObject) scores.get(0);
+       assertEquals(obj1.get("name"), score1.getName());
+       Integer points1 = score1.getPoints();
+       assertEquals(obj1.get("points"), points1.toString());
+
+       JSONObject obj2 = (JSONObject) scores.get(1);
+       assertEquals(obj2.get("name"), score2.getName());
+       Integer points2 = score2.getPoints();
+       assertEquals(obj2.get("points"), points2.toString());
+
+    }
+
+    @Test
+    void testScoresToJson() {
+
+        ScoreBoard testScoreboard = new ScoreBoard();
+        testScoreboard.addScore(score1);
+        testScoreboard.addScore(score2);
+
+        JSONArray testArray = testScoreboard.scoresToJson();
+
+        JSONObject obj1 = testArray.getJSONObject(0);
+        assertEquals(obj1.get("name"), score1.getName());
+        assertEquals(obj1.get("points"), "3");
+
+        JSONObject obj2 = testArray.getJSONObject(1);
+        assertEquals(obj2.get("name"), score2.getName());
+        assertEquals(obj2.get("points"), "2");
+
+
+
+    }
+
+
+
+
 
 
 }

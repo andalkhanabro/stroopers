@@ -112,7 +112,7 @@ public class ScoreBoard implements Writable {
     }
 
     // EFFECTS: returns scores in this scoreboard as a JSON array
-    private JSONArray scoresToJson() {
+    public JSONArray scoresToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Score s : scoreBoard) {

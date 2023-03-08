@@ -41,6 +41,7 @@ public class Score implements Writable {
         this.points += 1;
     }
 
+
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -50,7 +51,6 @@ public class Score implements Writable {
         json.put("points", pointsJsonFormat);
         return json;
     }
-
 
 
     public int getPoints() {

@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 public class StroopGame {
 
     // EFFECTS: Prompts an instance of the Stroop Game
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         try {
             GamePanel.makeFirstGame();
         } catch (FileNotFoundException fileNotFoundException) {

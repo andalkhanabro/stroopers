@@ -2,6 +2,7 @@ package model;
 
 // the test class for Score
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -70,6 +71,15 @@ public class ScoreTest {
 
         assertEquals(5, score1.getPoints());
 
+    }
+
+
+    @Test
+    void toJsonTest() {
+        Score testScore = new Score("A", 2);
+        JSONObject testJson = testScore.toJson();
+        assertEquals(testJson.getString("name"), "A");
+        assertEquals(testJson.getString("points"), "2");
     }
 
 }
