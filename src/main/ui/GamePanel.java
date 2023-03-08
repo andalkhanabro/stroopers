@@ -4,11 +4,23 @@ import model.Answer;
 import model.Score;
 import model.ScoreBoard;
 import model.Word;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 // the GamePanel class which manages the main UI for Stroop Game
 public class GamePanel {
     private static ScoreBoard scoreboard = new ScoreBoard();
+
+    private static JsonWriter jsonWriter;
+
+    private static JsonReader jsonReader;
+
+    private static final String JSON_STORE = "./data/scoreboard.json"; // destination where sb will be saved
 
     // REQUIRES: t should be greater than 0
     // EFFECTS: delays the execution of the program by t milliseconds
@@ -78,6 +90,8 @@ public class GamePanel {
      */
     private static void runStroopEffect() {
 
+        jsonWriter = new JsonWriter(JSON_STORE);
+
         boolean keepGameGoing = true;
         Word w1 = new Word();
         Score currentScore = new Score();
@@ -91,13 +105,12 @@ public class GamePanel {
             System.out.println(w1.ansiCodeOfColor(color) + w1.chooseSpellingOfColor());
             System.out.println("\n");
             Scanner userAnswer = new Scanner(System.in);
-            Answer firstAnswer = new Answer();
 
             String whatUserEntered = userAnswer.next();
 
             // Verifies user answer with correct answer
 
-            if (firstAnswer.isUserAnswerCorrect(whatUserEntered, color)) {
+            if (new Answer().isUserAnswerCorrect(whatUserEntered, color)) {
                 currentScore.updatePointCount();
 
                 // If user answer is incorrect, allows user to view scoreboard and rank, and/or play again arbitrarily
@@ -127,11 +140,19 @@ public class GamePanel {
     }
 
     // EFFECTS: Makes game if user wants to start it, else prints the game terminating message
-    public static void makeFirstGame() {
+    public static void makeFirstGame() throws FileNotFoundException {
 
         if (startFirstGame()) {
+            jsonReader = new JsonReader(JSON_STORE);
+            if (doesUserWantToLoad()) {
+                System.out.println("\nThe old scoreboard is printed below. ");
+                scoreboard = loadOldScoreboard();
+                new ScoreboardUI().printScoreBoardHelper(loadOldScoreboard());
+            } else {
+                System.out.println("\nData was not loaded. A new scoreboard will be made. ");
+            }
             System.out.println("\nOkay! Game starting in.. ");
-            delayTime(300);
+            delayTime(400);
             printCountdown();
             runStroopEffect();
 
@@ -140,6 +161,13 @@ public class GamePanel {
 
         }
 
+    }
+
+    // EFFECTS: asks user if they want to load previous scoreboard, if any
+    private static boolean doesUserWantToLoad() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nDo you want to load the scoreboard from the previous game? ");
+        return scanner.nextBoolean();
     }
 
     // EFFECTS: Makes next games as long as the user wants to play, else prints the terminating message
@@ -152,10 +180,49 @@ public class GamePanel {
             runStroopEffect();
 
         } else {
-            System.out.println("\nGame exited. Thank you for playing!");
-
+            if (doesUserWantToSave()) {
+                saveOldScoreboard();
+                System.out.println("\nGame exited and data has been saved. Thank you for playing!");
+            } else {
+                System.out.println("\nGame exited and data was not saved. Thank you for playing!");
+            }
         }
 
+    }
+
+    // EFFECTS: asks the user if they want to save the current scoreboard before terminating the program
+    private static boolean doesUserWantToSave() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\nDo you want to save the current scoreboard before leaving? ");
+        return sc.nextBoolean();
+    }
+
+
+    private static void saveOldScoreboard() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(scoreboard);
+            jsonWriter.close();
+            System.out.println("Saved scoreboard" + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private static ScoreBoard loadOldScoreboard() {
+        try {
+            scoreboard = jsonReader.read();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+        return scoreboard;
+
+    }
+
+    private static void makeInitialScoreBoard() {
     }
 
 }

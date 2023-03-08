@@ -30,11 +30,13 @@ things. Things we know and things we don't know.
 
 ### User Stories
 
-- As a user, I want to be able to play *Stroopers* and earn a score
+- As a user, I want to be able to play *Stroopers* and earn a score 
 - As a user, I want to be able to add my score to a scoreboard
 - As a user, I want to be able to view and sort the scoreboard
 - As a user, I want to be able to see my rank relative to other scores in the scoreboard 
 - As a user, I want to be able to remove my score from the scoreboard
+- As a user, I want to be able to save my scoreboard when I stop playing the game 
+- As a user, I want to be able to load a previously saved scoreboard when I start playing a game 
 
 
 ### Stretched User Stories (To Be Implemented)
@@ -49,3 +51,5 @@ learnt it from is available [here.](https://youtu.be/g8qeaEd2jTc)
 - My project heavily relies on the ability to print colored text on the terminal. I studied about this and learnt about 
 internal ANSI codes and how they can be used to do so. The exact ANSI codes I used in my methods are available
 [here](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html).
+- I understood and modified a lot of the code given by the CPSC 210 team in the WorkRoomApp to implement data persistence
+in this application. 

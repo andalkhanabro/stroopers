@@ -116,7 +116,6 @@ class WordTest {
         count++;
 
         }
-
     }
 
 }

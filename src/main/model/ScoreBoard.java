@@ -2,13 +2,19 @@ package model;
 
 // A collection of Scores of users who play the game
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ScoreBoard {
+public class ScoreBoard implements Writable {
 
     private List<Score> scoreBoard;
+
+    private String name;
 
     // EFFECTS: Creates an empty scoreboard for the Stroop Game
     public ScoreBoard() {
@@ -98,4 +104,26 @@ public class ScoreBoard {
         return this.scoreBoard.indexOf(score) + 1;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("scores", scoresToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray scoresToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Score s : scoreBoard) {
+            jsonArray.put(s.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    public ScoreBoard(String name) {
+        this.name = name;
+        this.scoreBoard = new ArrayList<>();
+    }
 }

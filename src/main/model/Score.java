@@ -2,7 +2,10 @@ package model;
 
 // the Score of the user with a point count, and the name of the user for each Stroop Game
 
-public class Score {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Score implements Writable {
     private int points; // the points scored by the user in that attempt
     private String userName; // the name of the user who just played the game
 
@@ -37,6 +40,18 @@ public class Score {
 
         this.points += 1;
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        Integer pointCount = this.points;
+        String pointsJsonFormat = pointCount.toString();
+        json.put("name", userName);
+        json.put("points", pointsJsonFormat);
+        return json;
+    }
+
+
 
     public int getPoints() {
 
