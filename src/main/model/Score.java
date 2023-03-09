@@ -42,6 +42,7 @@ public class Score implements Writable {
     }
 
 
+    // EFFECTS: returns this score as a JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
