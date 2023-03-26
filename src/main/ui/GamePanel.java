@@ -7,11 +7,15 @@ import model.Word;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 // the GamePanel class which manages the main UI for Stroop Game
+
+// look into multi-threading!
+
 public class GamePanel {
     private static ScoreBoard scoreboard = new ScoreBoard();
 
@@ -104,7 +108,6 @@ public class GamePanel {
             System.out.println(w1.ansiCodeOfColor(color) + w1.chooseSpellingOfColor());
             System.out.println("\n");
             Scanner userAnswer = new Scanner(System.in);
-
             String whatUserEntered = userAnswer.next();
 
             // Verifies user answer with correct answer
@@ -221,5 +224,6 @@ public class GamePanel {
         return scoreboard;
 
     }
+
 
 }
