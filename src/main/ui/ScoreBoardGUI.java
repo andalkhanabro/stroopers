@@ -23,7 +23,7 @@ public class ScoreBoardGUI {
         return proceedToScoreBoard;
     }
 
-    public static JButton determineRankButton() {
+    public static void determineRankButton() {
 
         determineRankButton = new JButton();
         Font font = new Font("Comic Sans", Font.BOLD, 20);
@@ -31,7 +31,6 @@ public class ScoreBoardGUI {
         determineRankButton.setText("SKIP");
         determineRankButton.setBounds(200, 400, 150, 50); //TODO: fix the positioning on main frame
 
-        return determineRankButton;
     }
 
 

@@ -6,20 +6,20 @@ import model.ScoreBoard;
 import model.Word;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
 public class GUI implements KeyListener {
-
     private static JFrame frame;
     private static JButton playGameButton;
     private static JLabel gameName;
@@ -33,23 +33,18 @@ public class GUI implements KeyListener {
     private static JButton addButton;
     private static JButton loadGameButton;
     private static JTextField nameField;
-
     private static JLabel rulesIcon;
     private String correctAnswer;
     private Character singleKeyEquivalentString;
     private boolean keyEventSaved = true;
     private static ScoreBoard scoreboard = new ScoreBoard();
-    private Score score;
+    private static Score score;
     private static JsonWriter jsonWriter;
     private static JsonReader jsonReader;
+    private static JLabel bgImage;
     private static final String JSON_STORE = "./data/scoreboard.json"; // destination where scoreboard will be saved
 
-    public static void main(String[] args) {
-
-        GUI myGUI = new GUI();
-        myGUI.startApp();
-
-    }
+    private static final Color orange = new Color(255,128,0);
 
     public void startApp() {
 
@@ -65,6 +60,8 @@ public class GUI implements KeyListener {
         makeGameLabel();
 
         setBackGroundImage();
+
+        setCircleCountdown();
 
         addComponents();
 
@@ -90,7 +87,7 @@ public class GUI implements KeyListener {
     }
 
     public static void setupFrame() {
-        frame = new JFrame("Stroop Game"); // makes main window
+        frame = new JFrame("Stroop Game");
         frame.setSize(800,500); // sets size of window
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // what happens when red cross is pressed
         frame.setLocationRelativeTo(null);
@@ -113,11 +110,10 @@ public class GUI implements KeyListener {
     public static void makeGameLabel() {
         gameName = new JLabel();
         gameName.setText("STROOPERS");
-        Color custom = new Color(255,255,204);
         Font gameNameFont = new Font("Comic Sans", Font.BOLD,80);
 
         gameName.setFont(gameNameFont);
-        gameName.setForeground(custom);
+        gameName.setForeground(Color.white);
         gameName.setBounds(160,130,500, 100);
 
     }
@@ -127,6 +123,13 @@ public class GUI implements KeyListener {
         backgroundImage.setBounds(0, 0, 800, 500);
         backgroundImage.setIcon(new ImageIcon("data/resizedStroopersBg.jpg"));
 
+    }
+
+    public static void setCircleCountdown() {
+        bgImage = new JLabel();
+        ImageIcon circle = new ImageIcon("data/'.jpg");
+        bgImage.setIcon(circle);
+        bgImage.setBounds(90,-50,600,552);
     }
 
     public static void addComponents() {
@@ -160,7 +163,9 @@ public class GUI implements KeyListener {
                 frame.remove(rulesIcon);
                 frame.revalidate();
                 frame.repaint();
-                frame.add(numberThree);
+                frame.add(bgImage);
+                bgImage.add(numberThree);
+
             }
         };
 
@@ -181,19 +186,19 @@ public class GUI implements KeyListener {
     public static void makeCountDownNumbers() {
 
         numberThree = new JLabel("3");
-        numberThree.setFont(new Font("Comic Sans", Font.BOLD, 50));
-        numberThree.setForeground(Color.PINK);
-        numberThree.setBounds(380,130, 200,200);
+        numberThree.setFont(new Font("Comic Sans", Font.BOLD, 70));
+        numberThree.setForeground(orange);
+        numberThree.setBounds(275,185, 200,200);
 
         numberTwo = new JLabel("2");
-        numberTwo.setFont(new Font("Comic Sans", Font.BOLD, 50));
-        numberTwo.setForeground(Color.YELLOW);
-        numberTwo.setBounds(380,130, 200,200);
+        numberTwo.setFont(new Font("Comic Sans", Font.BOLD, 70));
+        numberTwo.setForeground(orange);
+        numberTwo.setBounds(275,185, 200,200);
 
         numberOne = new JLabel("1");
-        numberOne.setFont(new Font("Comic Sans", Font.BOLD, 50));
-        numberOne.setForeground(Color.BLUE);
-        numberOne.setBounds(380,130, 200,200);
+        numberOne.setFont(new Font("Comic Sans", Font.BOLD, 70));
+        numberOne.setForeground(orange);
+        numberOne.setBounds(275,185, 200,200);
 
     }
 
@@ -204,10 +209,10 @@ public class GUI implements KeyListener {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                frame.remove(numberThree);
-                frame.revalidate();
-                frame.repaint();
-                frame.add(numberTwo);
+                bgImage.remove(numberThree);
+                resetToInitialState();
+                frame.add(bgImage);
+                bgImage.add(numberTwo);
             }
         };
 
@@ -222,10 +227,11 @@ public class GUI implements KeyListener {
         TimerTask task2 = new TimerTask() {
             @Override
             public void run() {
+                bgImage.remove(numberTwo);
                 frame.remove(numberTwo);
-                frame.revalidate();
-                frame.repaint();
-                frame.add(numberOne);
+                resetToInitialState();
+                frame.add(bgImage);
+                bgImage.add(numberOne);
             }
         };
 
@@ -249,7 +255,8 @@ public class GUI implements KeyListener {
         TimerTask task3 = new TimerTask() {
             @Override
             public void run() {
-                frame.remove(numberOne);
+                bgImage.remove(numberOne);
+                resetToInitialState();
                 frame.revalidate();
                 frame.repaint();
                 frame.add(goLabel);
@@ -451,8 +458,8 @@ public class GUI implements KeyListener {
         addButton.addActionListener(e -> {
             resetToInitialState();
             String userName = nameField.getText();
-            Score userScore = new Score(userName, score.getPoints());
-            scoreboard.addScore(userScore);
+            score = new Score(userName, score.getPoints());
+            scoreboard.addScore(score);
             scoreboard.sortScoreBoard();
             saveOldScoreboard();
             new ScoreboardUI().printScoreBoardHelper(scoreboard);
@@ -478,21 +485,24 @@ public class GUI implements KeyListener {
 
 
     public void makeScoreBoardScreen() {
-        makeExitButton();
+        displayScoreboardButton();
         makePlayAgainButton();
+        determineRankButton();
+        exitButton();
     }
 
 
-    public static void makeExitButton() {
+    public static void displayScoreboardButton() {
 
-        JButton exitButton = new JButton();
-        exitButton.setText("EXIT GAME");
+        JButton displayScoreboardButton = new JButton();
+        displayScoreboardButton.setText("DISPLAY BOARD");
         Font font = new Font("Comic Sans", Font.BOLD, 15);
-        exitButton.setFont(font);
-        exitButton.setBounds(380, 400, 150, 50);
-        frame.add(exitButton);
+        displayScoreboardButton.setFont(font);
+        displayScoreboardButton.setBounds(228, 400, 150, 50);
+        frame.add(displayScoreboardButton);
 
-        exitButton.addActionListener(e -> System.exit(0));
+        displayScoreboardButton.addActionListener(e -> makeScoreboardList()
+        );
 
     }
 
@@ -503,7 +513,7 @@ public class GUI implements KeyListener {
         Font font = new Font("Comic Sans", Font.BOLD, 15);
         playAgainButton.setFont(font);
         playAgainButton.setText("PLAY AGAIN");
-        playAgainButton.setBounds(220, 400, 150, 50);
+        playAgainButton.setBounds(59, 400, 150, 50);
 
         frame.add(playAgainButton);
         playAgainButton.addActionListener(e -> startAppAgain());
@@ -552,11 +562,61 @@ public class GUI implements KeyListener {
 
     }
 
+    public static void makeScoreboardList() {
+        List<String> scoreboardEntries = scoreboard.mapScoresToScoreEntries();
 
-    //TODO
-    // make new screen displaying a scoreboard using JList. prompt that screen when adduser is pressed.
-    // Make button to determine rank as a pop-up message in given scoreboard.
-    //
+
+        DefaultTableModel scoreboardModel = new DefaultTableModel(new Object[]{"SCOREBOARD"}, 0);
+
+        JTable table = new JTable(scoreboardModel);
+
+        table.setBackground(Color.YELLOW);
+
+        for (String scoreEntry : scoreboardEntries) {
+            ((DefaultTableModel) table.getModel()).addRow(new Object[]{scoreEntry});
+        }
+
+        table.setDefaultEditor(Object.class,null);
+
+        JLabel header = (JLabel) table.getTableHeader().getDefaultRenderer();
+        header.setHorizontalAlignment(JLabel.CENTER);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(50,50,700,300);
+        frame.add(scrollPane);
+    }
+
+    public static void determineRankButton() {
+
+        JButton determineRankButton = new JButton();
+        Font font = new Font("Comic Sans", Font.BOLD, 15);
+        determineRankButton.setFont(font);
+        determineRankButton.setText("RANK");
+        determineRankButton.setBounds(396, 400, 150, 50);
+        frame.add(determineRankButton);
+
+        int totalPlayers = scoreboard.scoreboardSize();
+        int rank = scoreboard.determineRank(score);
+
+        String displayMessage = "Your rank is " + rank + " out of " + totalPlayers  + " players!";
+
+        determineRankButton.addActionListener(e -> JOptionPane.showMessageDialog(null, displayMessage));
+
+
+    }
+
+    public static void exitButton() {
+
+        JButton exitGameButton = new JButton();
+        Font font = new Font("Comic Sans", Font.BOLD, 15);
+        exitGameButton.setFont(font);
+        exitGameButton.setText("EXIT GAME");
+        exitGameButton.setBounds(566, 400, 150, 50);
+        frame.add(exitGameButton);
+
+        exitGameButton.addActionListener(e ->  System.exit(0));
+
+    }
 
 
 
