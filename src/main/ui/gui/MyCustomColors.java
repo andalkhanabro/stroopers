@@ -1,12 +1,12 @@
-package ui;
+package ui.gui;
 
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.awt.Color.*;
 
+// A class to do color handling of words, randomize them and define new colors
 public class MyCustomColors {
 
     // built-in java colors
@@ -34,7 +34,7 @@ public class MyCustomColors {
 
     private static final Color pink = new Color(255,51,153);
 
-    private static final Color gray = new Color(160,160,160);
+    private static final Color gray = Color.darkGray;
 
     private static final String pinkHex = new MyCustomColors().convertColorToHexaDecimal(pink);
 
@@ -67,21 +67,24 @@ public class MyCustomColors {
 
     }
 
-
+    // EFFECTS: returns an index for the color array at random
     public int randomColorIndex() {
         Random colorIndex = new Random();
         return colorIndex.nextInt(11);
     }
 
+    // EFFECTS: chooses a spelling for the color at random
     public String chooseSpellingOfColor() {
         return (String) Array.get(colorHexaDecimals, randomColorIndex());
     }
 
+    // EFFECTS: returns a hexadecimal representation of a Color object
     public String convertColorToHexaDecimal(Color color) {
         return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
     }
 
-    public String getNameofColor(String hexaDecimalCode) {
+    // EFFECTS: gets name of color with equivalent hexadecimal code from defined color map
+    public String getNameOfColor(String hexaDecimalCode) {
         return hexadecimalsToName.get(hexaDecimalCode);
     }
 

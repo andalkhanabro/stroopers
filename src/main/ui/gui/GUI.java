@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 import model.Answer;
 import model.Score;
@@ -6,6 +6,7 @@ import model.ScoreBoard;
 import model.Word;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -14,11 +15,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+// A class which handles GUI for Stroopers
 public class GUI implements KeyListener {
     private static JFrame frame;
     private static JButton playGameButton;
@@ -44,12 +47,16 @@ public class GUI implements KeyListener {
     private static JLabel bgImage;
     private static final String JSON_STORE = "./data/scoreboard.json"; // destination where scoreboard will be saved
 
+    private String[] fontStyles = {"Veranda", "Times New Roman", "Sans Serif", "American TypeWriter", "Impact",
+            "Zapfino", "NotoSansJavanese-Regular"};
     private static final Color orange = new Color(255,128,0);
 
+
+    // MODIFIES: this
+    // EFFECTS: starts the game for the first time when the play button is pressed
     public void startApp() {
 
         jsonReader = new JsonReader(JSON_STORE);
-        new ScoreboardUI().printScoreBoardHelper(scoreboard);
 
         setupFrame();
 
@@ -61,15 +68,15 @@ public class GUI implements KeyListener {
 
         setBackGroundImage();
 
-        setCircleCountdown();
+        circleIconForNumbers();
 
         addComponents();
 
         startWhenPlayButtonPressed();
-
     }
 
 
+    // EFFECTS: starts game again if user presses play button again
     public void startAppAgain() {
 
         setupFrame();
@@ -86,6 +93,9 @@ public class GUI implements KeyListener {
 
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: sets up the frame and uses absolute positioning as a layout
     public static void setupFrame() {
         frame = new JFrame("Stroop Game");
         frame.setSize(800,500); // sets size of window
@@ -95,10 +105,12 @@ public class GUI implements KeyListener {
         frame.setResizable(false);
     }
 
+
+    // EFFECTS: makes the play button for the screen and sets the play icon
     public static void makePlayButtonWithIcon() {
         playGameButton = new JButton();
         playGameButton.setText("PLAY");
-        Font playGameFont = new Font("Comic Sans", Font.BOLD,20);
+        Font playGameFont = new Font("Comic Sans", Font.BOLD,22);
         playGameButton.setFont(playGameFont);
         playGameButton.setBounds(220,250,150, 50);
         Color custom = new Color(255,255,204);
@@ -107,6 +119,8 @@ public class GUI implements KeyListener {
         playGameButton.setIcon(new ImageIcon("data/playButton2.jpg"));
     }
 
+
+    // EFFECTS: makes the game label STROOPERS that is displayed at the start of the game
     public static void makeGameLabel() {
         gameName = new JLabel();
         gameName.setText("STROOPERS");
@@ -118,6 +132,8 @@ public class GUI implements KeyListener {
 
     }
 
+
+    // EFFECTS: makes a label to display the background image of the game
     public static void setBackGroundImage() {
         backgroundImage = new JLabel();
         backgroundImage.setBounds(0, 0, 800, 500);
@@ -125,13 +141,17 @@ public class GUI implements KeyListener {
 
     }
 
-    public static void setCircleCountdown() {
+    // EFFECTS: makes a label for the image of the circle to encircle the countdown numbers
+    public static void circleIconForNumbers() {
         bgImage = new JLabel();
-        ImageIcon circle = new ImageIcon("data/'.jpg");
+        ImageIcon circle = new ImageIcon("data/numberBg.jpg");
         bgImage.setIcon(circle);
         bgImage.setBounds(90,-50,600,552);
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: adds all starting components and buttons to the frame
     public static void addComponents() {
 
         frame.add(backgroundImage);
@@ -142,12 +162,19 @@ public class GUI implements KeyListener {
         frame.setResizable(true);
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: resets frame and repaints it to be a black screen
     public static void resetToInitialState() {
         frame.getContentPane().removeAll();
         frame.repaint();
         frame.getContentPane().setBackground(Color.BLACK);
     }
 
+
+
+    // MODIFIES: this
+    // EFFECTS: shows game instructions, countdown numbers and starts displaying words after certain time delays in each
     public void displayCountDownToGame() throws InterruptedException {
 
         showGameInstructions();
@@ -155,7 +182,6 @@ public class GUI implements KeyListener {
         makeCountDownNumbers();
 
         Timer timer0 = new Timer();
-
         TimerTask task0 = new TimerTask() {
             @Override
             public void run() {
@@ -183,6 +209,7 @@ public class GUI implements KeyListener {
 
     }
 
+    // EFFECTS: makes countdown numbers for the frame
     public static void makeCountDownNumbers() {
 
         numberThree = new JLabel("3");
@@ -202,6 +229,8 @@ public class GUI implements KeyListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes the number three from the screen, repaints frame and displays the number three after some time
     public static void addTwoRemoveThree() {
 
         Timer timer = new Timer();
@@ -220,6 +249,9 @@ public class GUI implements KeyListener {
 
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: removes the number two from the screen, repaints frame and displays the number two after some time
     public static void addOneRemoveTwo() {
 
         Timer timer2 = new Timer();
@@ -239,6 +271,7 @@ public class GUI implements KeyListener {
 
     }
 
+    // EFFECTS: makes a go label for the frame
     public static void makeGoLabel() {
 
         goLabel = new JLabel("GO!");
@@ -248,6 +281,9 @@ public class GUI implements KeyListener {
 
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: removes the number one from the screen, repaints frame and adds the GO Label
     public static void removeOneAndGo() {
 
         Timer timer3 = new Timer();
@@ -268,6 +304,8 @@ public class GUI implements KeyListener {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: resets frame when play button is pressed and starts countdown for the game
     public void startWhenPlayButtonPressed() {
 
         playGameButton.addActionListener(e -> {
@@ -282,6 +320,21 @@ public class GUI implements KeyListener {
 
     }
 
+    // EFFECTS: returns an index for the font styles array randomly
+    public int randomFontStyleIndex() {
+        Random colorIndex = new Random();
+        return colorIndex.nextInt(7);
+    }
+
+
+    // EFFECTS: chooses a font style at random
+    public String chooseFontStyleAtRandom() {
+        return (String) Array.get(fontStyles, randomFontStyleIndex());
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: displays game instructions on the screen with a RULES heading
     public static void showGameInstructions() {
 
         gameInstructions = new JTextArea();
@@ -310,6 +363,10 @@ public class GUI implements KeyListener {
 
     }
 
+
+    // MODIFIES: this, currentWord
+    // EFFECTS: displays words recursively with randomised font colors and spellings on the screen and generates
+    // equivalent correct answers for each word
     public void displayRandomStroopWord() {
 
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -319,14 +376,15 @@ public class GUI implements KeyListener {
         String trueSpelling = new MyCustomColors().chooseSpellingOfColor();
 
         currentWordLabel = new JLabel(trickSpelling);
-        currentWordLabel.setFont(new Font("Comic Sans", Font.BOLD, 50));
+        currentWordLabel.setFont(new Font("Comic Sans", Font.BOLD, 48));
+
         Color color = Color.decode(trueSpelling);
         currentWordLabel.setForeground(color);
         currentWordLabel.setBounds(310, 130, 200, 200);
 
         startProducingWords();
 
-        correctAnswer = new MyCustomColors().getNameofColor(trueSpelling);
+        correctAnswer = new MyCustomColors().getNameOfColor(trueSpelling);
 
         singleKeyEquivalentString = new Answer().generateCorrectAnswer(correctAnswer);
 
@@ -338,6 +396,8 @@ public class GUI implements KeyListener {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: removes GO label and repaints frame to add the word label after a time delay
     public void startProducingWords() {
 
         Timer timer4 = new Timer();
@@ -356,11 +416,16 @@ public class GUI implements KeyListener {
 
     }
 
+
+    // EFFECTS:
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: checks if key event is saved, and then key event matches the correct answer, else prompts game to be
+    // over
     public void keyPressed(KeyEvent e) {
 
         if (!keyEventSaved) {
@@ -382,6 +447,7 @@ public class GUI implements KeyListener {
 
     }
 
+    // EFFECTS: checks if key is released
     @Override
     public void keyReleased(KeyEvent e) {
 
@@ -389,6 +455,8 @@ public class GUI implements KeyListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes next words, checks user's key event with correct answer and displays words at random
     public void nextWords() {
 
         Word currentWord = new Word();
@@ -396,7 +464,7 @@ public class GUI implements KeyListener {
         String trueSpelling = new MyCustomColors().chooseSpellingOfColor();
 
         currentWordLabel = new JLabel(trickSpelling);
-        currentWordLabel.setFont(new Font("Comic Sans", Font.BOLD, 50));
+        currentWordLabel.setFont(new Font(chooseFontStyleAtRandom(), Font.BOLD, 50));
         Color color = Color.decode(trueSpelling);
         currentWordLabel.setForeground(color);
         currentWordLabel.setBounds(310, 130, 200, 200);
@@ -404,7 +472,7 @@ public class GUI implements KeyListener {
         frame.add(currentWordLabel);
 
         String hexOfCorrect = new MyCustomColors().convertColorToHexaDecimal(color);
-        correctAnswer = new MyCustomColors().getNameofColor(hexOfCorrect);
+        correctAnswer = new MyCustomColors().getNameOfColor(hexOfCorrect);
 
         Answer currentAnswer = new Answer();
 
@@ -414,7 +482,8 @@ public class GUI implements KeyListener {
 
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: displays game summary and ends game
     public void gameOverScreen() {
         resetToInitialState();
         int thisScore = score.getPoints();
@@ -423,9 +492,12 @@ public class GUI implements KeyListener {
         gameOverLabel.setForeground(Color.PINK);
         gameOverLabel.setBounds(210, 130, 500, 200);
         frame.add(gameOverLabel);
-        doesUserWantToAdd();
+        addUserAndSave();
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: makes input field for user to enter name after game is over
     public void makeNameField() {
 
         nameField = new JTextField();
@@ -438,6 +510,8 @@ public class GUI implements KeyListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes add user and save button
     public void makeAddUserButton() {
 
         addButton = new JButton();
@@ -447,10 +521,11 @@ public class GUI implements KeyListener {
         addButton.setBounds(380, 400, 150, 50);
         frame.add(addButton);
 
-
     }
 
-    public void doesUserWantToAdd() {
+    // MODIFIES: this
+    // EFFECTS: adds user profile to board and saves scoreboard if button is pressed
+    public void addUserAndSave() {
 
         makeNameField();
         makeAddUserButton();
@@ -462,15 +537,17 @@ public class GUI implements KeyListener {
             scoreboard.addScore(score);
             scoreboard.sortScoreBoard();
             saveOldScoreboard();
-            new ScoreboardUI().printScoreBoardHelper(scoreboard);
             makeScoreBoardScreen();
         });
 
         makeSkipButton();
 
-
     }
 
+
+
+    // MODIFIES: this
+    // EFFECTS: skips adding user if pressed, resets frame and displays scoreboard screen
     public void makeSkipButton() {
 
         JButton proceed = ScoreBoardGUI.makeProceedToScoreboardButton();
@@ -484,6 +561,8 @@ public class GUI implements KeyListener {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: adds all buttons and their functionalities to make a scoreboard screen by calling other methods
     public void makeScoreBoardScreen() {
         displayScoreboardButton();
         makePlayAgainButton();
@@ -492,6 +571,8 @@ public class GUI implements KeyListener {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: makes display scoreboard button and displays board if pressed
     public static void displayScoreboardButton() {
 
         JButton displayScoreboardButton = new JButton();
@@ -507,6 +588,8 @@ public class GUI implements KeyListener {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: makes play again button, and restarts game if user presses it
     public void makePlayAgainButton() {
 
         JButton playAgainButton = new JButton();
@@ -519,6 +602,7 @@ public class GUI implements KeyListener {
         playAgainButton.addActionListener(e -> startAppAgain());
     }
 
+    // EFFECTS: saves current scoreboard to file
     private static void saveOldScoreboard() {
         try {
             jsonWriter.open();
@@ -527,9 +611,10 @@ public class GUI implements KeyListener {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file while saving to " + JSON_STORE);
         }
-
     }
 
+    // MODIFIES: scoreboard
+    // EFFECTS: loads old scoreboard from file
     private static ScoreBoard loadOldScoreboard() {
         try {
             scoreboard = jsonReader.read();
@@ -540,6 +625,10 @@ public class GUI implements KeyListener {
 
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: makes a load game button, loads old scoreboard if pressed and displays confirmation message to user
+    // on screen
     public static void processLoadButton() {
 
         loadGameButton = new JButton();
@@ -554,17 +643,16 @@ public class GUI implements KeyListener {
 
         loadGameButton.addActionListener(e -> {
             loadOldScoreboard();
-            JOptionPane.showMessageDialog(null, "Scoreboard Loaded!");
+            JOptionPane.showMessageDialog(null, "The old scoreboard has been loaded!");
             loadGameButton.setEnabled(false);
-            new ScoreboardUI().printScoreBoardHelper(scoreboard);
         });
-
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: maps scores to entries, and displays scoreboard as a scrollable table with a scoreboard heading
     public static void makeScoreboardList() {
         List<String> scoreboardEntries = scoreboard.mapScoresToScoreEntries();
-
 
         DefaultTableModel scoreboardModel = new DefaultTableModel(new Object[]{"SCOREBOARD"}, 0);
 
@@ -586,6 +674,9 @@ public class GUI implements KeyListener {
         frame.add(scrollPane);
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: makes a rank button, determines rank and displays rank on the screen if button is pressed
     public static void determineRankButton() {
 
         JButton determineRankButton = new JButton();
@@ -605,6 +696,9 @@ public class GUI implements KeyListener {
 
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: makes an exit game button, and exits the program if user presses it
     public static void exitButton() {
 
         JButton exitGameButton = new JButton();
@@ -613,8 +707,15 @@ public class GUI implements KeyListener {
         exitGameButton.setText("EXIT GAME");
         exitGameButton.setBounds(566, 400, 150, 50);
         frame.add(exitGameButton);
+        exitGameButton.addActionListener(e -> {
 
-        exitGameButton.addActionListener(e ->  System.exit(0));
+            System.exit(0);
+
+
+
+
+
+        });
 
     }
 

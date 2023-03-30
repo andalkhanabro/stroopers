@@ -1,4 +1,4 @@
-package ui;
+package ui.tui;
 
 import model.Answer;
 import model.Score;
@@ -7,7 +7,6 @@ import model.Word;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;

@@ -46,7 +46,7 @@ class WordTest {
 
         int output = wordColour.randomColorIndex();
 
-        assertTrue(0 <= output && output <= 7);
+        assertTrue(0 <= output && output <= 10);
 
         count++; }
 
@@ -85,7 +85,8 @@ class WordTest {
                 (Objects.equals(colorName, "white")) ||
                 (Objects.equals(colorName, "blue")) || (Objects.equals(colorName, "cyan")) ||
                 (Objects.equals(colorName, "yellow")) || (Objects.equals(colorName, "green")) ||
-                (Objects.equals(colorName, "purple"));
+                (Objects.equals(colorName, "purple")) || (Objects.equals(colorName, "gray")) ||
+                (Objects.equals(colorName, "orange")) || (Objects.equals(colorName, "pink"));
 
         assertTrue(result);
 

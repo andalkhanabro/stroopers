@@ -9,7 +9,8 @@ import java.util.Random;
 public class Word {
 
     // available colors for each word
-    public final String[] colors = {"black", "red", "green", "yellow", "blue", "cyan", "white", "purple"};
+    public final String[] colors = {"black", "red", "green", "yellow", "blue", "cyan", "white", "purple", "gray",
+            "orange", "pink"};
 
     // spellings of those available colors
     public final String[] spellings = {"BLACK", "WHITE", "YELLOW", "BLUE", "GREEN", "RED", "PURPLE", "CYAN"};
@@ -17,7 +18,7 @@ public class Word {
     // EFFECTS: Generates a random index for the array of colors available for the word between 0 and 7 inclusive
     public int randomColorIndex() {
         Random colorIndex = new Random();
-        return colorIndex.nextInt(8);
+        return colorIndex.nextInt(11); // was 8 // all colors after purple have been added
     }
 
     // EFFECTS: Generates a random index for the spellings of colors available for the word between 0 and 7 inclusive
