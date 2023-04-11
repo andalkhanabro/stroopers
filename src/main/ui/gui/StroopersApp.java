@@ -5,6 +5,7 @@ package ui.gui;
 public class StroopersApp {
 
 
+
     // MODIFIES: this
     // EFFECTS: begins the stroop game and builds the GUI
     public static void main(String[] args) {

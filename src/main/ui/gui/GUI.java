@@ -1,9 +1,7 @@
 package ui.gui;
 
-import model.Answer;
-import model.Score;
-import model.ScoreBoard;
-import model.Word;
+import model.*;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -13,6 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -22,7 +22,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 // A class which handles GUI for Stroopers
-public class GUI implements KeyListener {
+public class GUI implements KeyListener, WindowListener {
     private static JFrame frame;
     private static JButton playGameButton;
     private static JLabel gameName;
@@ -50,6 +50,9 @@ public class GUI implements KeyListener {
     private String[] fontStyles = {"Veranda", "Times New Roman", "Sans Serif", "American TypeWriter", "Impact",
             "Zapfino", "NotoSansJavanese-Regular"};
     private static final Color orange = new Color(255,128,0);
+
+    //private static EventLog myLog = EventLog.getInstance();
+
 
 
     // MODIFIES: this
@@ -96,13 +99,14 @@ public class GUI implements KeyListener {
 
     // MODIFIES: this
     // EFFECTS: sets up the frame and uses absolute positioning as a layout
-    public static void setupFrame() {
+    public void setupFrame() {
         frame = new JFrame("Stroop Game");
         frame.setSize(800,500); // sets size of window
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // what happens when red cross is pressed
+      //  frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // what happens when red cross is pressed
         frame.setLocationRelativeTo(null);
         frame.setLayout(null); // absolute positioning of components on J_FRAME.
         frame.setResizable(false);
+        frame.addWindowListener(this);
     }
 
 
@@ -697,6 +701,13 @@ public class GUI implements KeyListener {
     }
 
 
+    public static void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.toString() + "\n\n");
+        }
+    }
+
+
     // MODIFIES: this
     // EFFECTS: makes an exit game button, and exits the program if user presses it
     public static void exitButton() {
@@ -706,28 +717,48 @@ public class GUI implements KeyListener {
         exitGameButton.setFont(font);
         exitGameButton.setText("EXIT GAME");
         exitGameButton.setBounds(566, 400, 150, 50);
+        exitGameButton.setEnabled(false);
         frame.add(exitGameButton);
         exitGameButton.addActionListener(e -> {
-
             System.exit(0);
-
-
-
-
-
         });
 
     }
 
 
+    @Override
+    public void windowOpened(WindowEvent e) {
 
+    }
 
+    @Override
+    public void windowClosing(WindowEvent e) {
+        printLog(EventLog.getInstance());
+        System.exit(0);
 
+    }
 
+    @Override
+    public void windowClosed(WindowEvent e) {
 
+    }
 
+    @Override
+    public void windowIconified(WindowEvent e) {
 
+    }
 
+    @Override
+    public void windowDeiconified(WindowEvent e) {
 
+    }
 
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+    }
 }

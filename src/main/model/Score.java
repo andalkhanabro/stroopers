@@ -12,7 +12,8 @@ public class Score implements Writable {
     // EFFECTS: creates a score with 0 default points when game begins
     public Score() {
         this.points = 0;
-
+        EventLog.getInstance().logEvent(new Event("A new score has been profile made! "
+                + "Game starting with 0 points.."));
     }
 
     // REQUIRES: name cannot be null or an empty string, points should be >= 0
@@ -21,6 +22,7 @@ public class Score implements Writable {
         this.userName = name;
         this.points = points;
     }
+
 
 
     // EFFECTS: Converts each score entry to a displayable string format
@@ -39,6 +41,8 @@ public class Score implements Writable {
     public void updatePointCount() {
 
         this.points += 1;
+        EventLog.getInstance().logEvent(new Event("Earned 1 point! Player has " + points + " points now."));
+        // LOGGING AN EVENT THAT SCORE IS UPDATED.
     }
 
 

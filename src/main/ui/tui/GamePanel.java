@@ -212,8 +212,7 @@ public class GamePanel {
 
     }
 
-    // MODIFIES: this
-    // EFFECTS: loads old scoreboard from file
+
     private static ScoreBoard loadOldScoreboard() {
         try {
             scoreboard = jsonReader.read();

@@ -83,3 +83,122 @@ data persistence in my application.
 - For my countdown screen, I used an image to encircle my numbers for aesthetic purposes which is available [here.](https://unsplash.com/photos/UgNjyPkphtU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 - I used an icon which says "rules" for my game instructions which is available [here.](https://www.bbc.co.uk/bitesize/topics/zvypmfr/articles/z7bfhbk)
 - I added a play icon to my play button which can be licensed from [here.](https://www.vecteezy.com/free-vector/video-play-icon)
+
+
+## **Phase 4** 
+
+### **UML Diagram** 
+
+- The UML Diagram is uploaded to the root directory
+
+
+
+
+### **Sample EventLog** 
+
+The image below shows a simple execution of my program whereby a user starts the program, loads data from file, plays the game
+and earns points and saves his profile to the scoreboard. Initially, the first few events show the parsing events, where old users
+are loaded and added back to the board. Then, a new score profile is made and the game starts. The events that follow show the user
+playing the game, and each event shows how giving a correct answer increments the point count. Finally, on the first incorrect answer, 
+the profile of the new user is made and added to the board at the user's discretion. The final events then, are, sorting of the scoreboard 
+and determining of the rank of the user who just played. In this case, Aandal, Jibran and Shahbaz were 3 old users whose profiles were loaded from file 
+and Mike was the new user who played the game, earned points, added himself to the board and got an assigned rank. 
+
+**Note**: The parsing events show up in the event log because parsing from the _JSON_ format and adding scores back to the board
+requires the use of the _addScore(Score score)_ method  in the model package. Since both instances, adding a new user and parsing old users, make use
+of the same method, they show up in the event log the first time the game is loaded. 
+
+Tue Apr 11 16:44:17 PDT 2023
+Profile [Username: Jibran, Points: 11] has been added to the board!
+
+
+Tue Apr 11 16:44:17 PDT 2023
+Profile [Username: Shahbaz, Points: 7] has been added to the board!
+
+
+Tue Apr 11 16:44:17 PDT 2023
+Profile [Username: Aandal, Points: 7] has been added to the board!
+
+
+Tue Apr 11 16:44:19 PDT 2023
+A new score has been profile made! Game starting with 0 points..
+
+
+Tue Apr 11 16:44:44 PDT 2023
+Earned 1 point! Player has 1 points now.
+
+
+Tue Apr 11 16:44:45 PDT 2023
+Earned 1 point! Player has 2 points now.
+
+
+Tue Apr 11 16:44:49 PDT 2023
+Earned 1 point! Player has 3 points now.
+
+
+Tue Apr 11 16:44:50 PDT 2023
+Earned 1 point! Player has 4 points now.
+
+
+Tue Apr 11 16:44:52 PDT 2023
+Earned 1 point! Player has 5 points now.
+
+
+Tue Apr 11 16:45:01 PDT 2023
+Earned 1 point! Player has 6 points now.
+
+
+Tue Apr 11 16:45:02 PDT 2023
+Earned 1 point! Player has 7 points now.
+
+
+Tue Apr 11 16:45:04 PDT 2023
+Earned 1 point! Player has 8 points now.
+
+
+Tue Apr 11 16:45:06 PDT 2023
+Earned 1 point! Player has 9 points now.
+
+
+Tue Apr 11 16:45:12 PDT 2023
+Profile [Username: Mike, Points: 9] has been added to the board!
+
+
+Tue Apr 11 16:45:12 PDT 2023
+Scoreboard has been sorted according to points using a sorting method!
+
+
+Tue Apr 11 16:45:12 PDT 2023
+Rank of Mike is 2/4 on the board!
+
+
+
+Process finished with exit code 0
+
+
+### **Refactoring and General Analysis Of Design** 
+
+While making my UML Diagram, I realised that there are multiple instances where the design of my code can be improved, 
+especially in my big UI classes like GamePanel & GUI where cohesion is poor. These classes, albeit fully functional, do
+more than one thing and are generally unfocused, managing all the technicalities of making AND setting up the components
+of the GUI. I believe that I can factor out a class just to make buttons, or even a collective
+helper method to set the common functionalities of buttons and labels instead of making a separate method for each one 
+of them (i.e makePlayButton, makeAddUserButton, exitButton etc) and thereby make the code easier to read and modify by 
+enabling a single point of control, which is a vital design principle as seen in CPSC 110. Additionally, I see that while
+I have separate classes for ScoreboardGUI and ScoreUI, my main classes do not have associations with them, meaning that 
+I have instantiated new objects wherever required, instead of making them fields of the class with a global access and reducing memory usage. 
+Hence, another possible refactoring is to single out such object instances and make them the fields of the class (e.g 
+making ScoreBoardGUI a static field of GUI which can be referred to anywhere in the rest of the code.)
+
+Another possible refactoring is in MyCustomColors class. Here, while I define my own colors using RGB values, I make use 
+of built-in Java colors as well, and the same class is making colors, managing internal representations (hexadecimal, name, RGB)
+and storing them as a map data structure. This means that the class has low cohesion and can be broken down into simpler classes for 
+improved readability. One way of doing so is to make an abstract class Color to represent a general color, and then make two classes
+MyColors and JavaColors extend it, abstracting out the methods that are common to both to reduce code duplication. Alternatively, 
+another way around this could be to make an enumeration of colors and use that in other classes instead of making them fields 
+and managing them in the same class. 
+
+Overall, there are also multiple instances in my TUI code where I code abstract out a field of type Scanner and reinitialise it 
+wherever I require user input and hence a Scanner object. While this might not affect performance significantly right now 
+because of the scale of the codebase, I believe it would be good practice to make use of the same object instances wherever 
+possible.

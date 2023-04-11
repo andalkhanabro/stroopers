@@ -18,6 +18,7 @@ public class ScoreBoard implements Writable {
 
     // EFFECTS: Creates an empty scoreboard for the Stroop Game
     public ScoreBoard() {
+
         this.scoreBoard = new ArrayList<>();
     }
 
@@ -25,6 +26,11 @@ public class ScoreBoard implements Writable {
     // EFFECTS: Adds the given score to the scoreboard
     public void addScore(Score s) {
         this.scoreBoard.add(s);
+        int points = s.getPoints();
+        String name = s.getName();
+        EventLog.getInstance().logEvent(new Event("Profile [Username: " + name + ", Points: " + points + "]"
+                + " has been added to the board!"));
+        // logs the event when score is added to board!
     }
 
     // REQUIRES: scoreboard is not empty
@@ -71,6 +77,8 @@ public class ScoreBoard implements Writable {
 
         }
         Collections.reverse(this.scoreBoard);
+        EventLog.getInstance().logEvent(new Event("Scoreboard has been sorted according to points using "
+                + "a sorting method!"));
     }
 
     // EFFECTS: returns the total number of times the game has been played by all users (the scoreboard size)
@@ -91,6 +99,7 @@ public class ScoreBoard implements Writable {
         }
 
         return entries;
+
     }
 
     // REQUIRES: Score cannot be null
@@ -99,8 +108,12 @@ public class ScoreBoard implements Writable {
      * re-sorting it
      */
     public int determineRank(Score score) {
-        this.sortScoreBoard();
-        return this.scoreBoard.indexOf(score) + 1;
+        int rank = this.scoreBoard.indexOf(score) + 1;
+        int users = this.scoreBoard.size();
+        String userName = score.getName();
+        EventLog.getInstance().logEvent(new Event("Rank of " + userName + " is " + rank + "/" + users + " "
+                + "on the board!"));
+        return rank;
     }
 
     // EFFECTS: returns a json object equivalent to scores in a given scoreboard
