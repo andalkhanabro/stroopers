@@ -701,6 +701,7 @@ public class GUI implements KeyListener, WindowListener {
     }
 
 
+    // EFFECTS: prints the events from the event log as strings to the console
     public static void printLog(EventLog el) {
         for (Event next : el) {
             System.out.println(next.toString() + "\n\n");
@@ -731,6 +732,7 @@ public class GUI implements KeyListener, WindowListener {
 
     }
 
+    // EFFECTS: prints events to console when user quits the application
     @Override
     public void windowClosing(WindowEvent e) {
         printLog(EventLog.getInstance());

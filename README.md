@@ -85,16 +85,9 @@ data persistence in my application.
 - I added a play icon to my play button which can be licensed from [here.](https://www.vecteezy.com/free-vector/video-play-icon)
 
 
-## **Phase 4** 
+## **Phase 4**
 
-### **UML Diagram** 
-
-- The UML Diagram is uploaded to the root directory
-
-
-
-
-### **Sample EventLog** 
+### **Phase 4: Task 2 - Sample EventLog** 
 
 The image below shows a simple execution of my program whereby a user starts the program, loads data from file, plays the game
 and earns points and saves his profile to the scoreboard. Initially, the first few events show the parsing events, where old users
@@ -174,6 +167,11 @@ Rank of Mike is 2/4 on the board!
 
 
 Process finished with exit code 0
+
+
+### **UML Diagram**
+
+- The UML Diagram is uploaded to the root directory. 
 
 
 ### **Refactoring and General Analysis Of Design** 
