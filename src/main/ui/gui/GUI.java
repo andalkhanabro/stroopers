@@ -727,6 +727,7 @@ public class GUI implements KeyListener, WindowListener {
     }
 
 
+    // Specification is assumed from supertype
     @Override
     public void windowOpened(WindowEvent e) {
 
@@ -740,26 +741,33 @@ public class GUI implements KeyListener, WindowListener {
 
     }
 
+    // Specification is assumed from supertype
     @Override
     public void windowClosed(WindowEvent e) {
 
     }
 
+    // Specification is assumed from supertype
     @Override
     public void windowIconified(WindowEvent e) {
 
     }
 
+    // Specification is assumed from supertype
     @Override
     public void windowDeiconified(WindowEvent e) {
 
     }
 
+
+    // Specification is assumed from supertype
     @Override
     public void windowActivated(WindowEvent e) {
 
     }
 
+
+    // Specification is assumed from supertype
     @Override
     public void windowDeactivated(WindowEvent e) {
     }

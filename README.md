@@ -101,7 +101,7 @@ and Mike was the new user who played the game, earned points, added himself to t
 requires the use of the _addScore(Score score)_ method  in the model package. Since both instances, adding a new user and parsing old users, make use
 of the same method, they show up in the event log the first time the game is loaded. 
 
-Tue Apr 11 16:44:17 PDT 2023
+Tue Apr 11 16:44:17 PDT 2023 
 Profile [Username: Jibran, Points: 11] has been added to the board!
 
 
@@ -174,7 +174,7 @@ Process finished with exit code 0
 - The UML Diagram is uploaded to the root directory. 
 
 
-### **Refactoring and General Analysis Of Design** 
+### **Phase 4: Task 3 - Refactoring and General Analysis Of Design** 
 
 While making my UML Diagram, I realised that there are multiple instances where the design of my code can be improved, 
 especially in my big UI classes like GamePanel & GUI where cohesion is poor. These classes, albeit fully functional, do
