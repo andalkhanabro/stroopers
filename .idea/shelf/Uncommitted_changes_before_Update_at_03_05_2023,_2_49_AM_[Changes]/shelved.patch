@@ -1,0 +1,43 @@
+Index: data/scoreboard.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\"scores\": [\n    {\n        \"name\": \"Jibran\",\n        \"points\": \"11\"\n    },\n    {\n        \"name\": \"Mike\",\n        \"points\": \"9\"\n    },\n    {\n        \"name\": \"Aandal\",\n        \"points\": \"7\"\n    },\n    {\n        \"name\": \"Shahbaz\",\n        \"points\": \"7\"\n    }\n]}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/scoreboard.json b/data/scoreboard.json
+--- a/data/scoreboard.json	(revision dcbc17fb10c91fed16d33518b313f63374aedb7e)
++++ b/data/scoreboard.json	(date 1683106097586)
+@@ -4,15 +4,27 @@
+         "points": "11"
+     },
+     {
++        "name": "Asim",
++        "points": "9"
++    },
++    {
+         "name": "Mike",
+         "points": "9"
+     },
+     {
+-        "name": "Aandal",
+-        "points": "7"
+-    },
+-    {
+         "name": "Shahbaz",
+         "points": "7"
++    },
++    {
++        "name": "Aandal",
++        "points": "7"
++    },
++    {
++        "name": "Aandal",
++        "points": "5"
++    },
++    {
++        "name": "AKA",
++        "points": "5"
+     }
+ ]}
+\ No newline at end of file
